@@ -1,7 +1,11 @@
 (ns lucid.package
   (:require [hara.namespace.import :as ns]
-            [hara.io.project :as project]
-            [hara.io.classpath :as classpath]
+            [hara.io
+             [classpath :as classpath]
+             [encode :as encode]
+             [file :as fs]
+             [project :as project]]
+            [hara.security :as security]
             [lucid.aether :as aether]
             [lucid.package
              [jar :as jar]
@@ -85,6 +89,22 @@
          second
          (assoc repository :authentication))))
 
+(defn md5-digest
+  [{:keys [file extension]}]
+  (let [content (-> (fs/read-all-bytes file)
+                    (security/digest "MD5")
+                    (encode/to-hex))
+        file (str file ".md5")
+        extension (str extension ".md5")
+        _ (spit content file)]
+    {:file file :extension extension}))
+
+(defn add-digest
+  [entries]
+  (->> entries
+       (map md5-digest)
+       (concat entries)))
+
 (defn deploy-project
   "creates the jar and pom files and deploys to clojars
  
@@ -104,14 +124,23 @@
                       :extension "jar"}
                      {:file pom-file
                       :extension "pom"}]
-         signing  nil #_(-> user/LEIN-PROFILE
-                      slurp
-                      read-string
-                      (get-in [:user :signing :gpg-key]))
-         signed  (if signing
-                   (map #(sign-file % {:signing signing}) artifacts))]
+         signing  #_(comment "Fix CRC24, Signature Verification")
+         (-> user/LEIN-PROFILE
+             slurp
+             read-string
+             (get-in [:user :signing :gpg-key]))
+         
+         artifacts (if-not signing
+                     artifacts
+                     (->> artifacts
+                          (map #(sign-file % {:signing signing}))
+                          (concat artifacts)))
+         
+         artifacts (->> artifacts
+                        (map md5-digest)
+                        (concat artifacts))]
      (-> project
          (select-keys [:group :artifact :version])
          (->> (classpath/artifact :coord))
-         (aether/deploy-artifact {:artifacts (vec (concat artifacts signed))
+         (aether/deploy-artifact {:artifacts artifacts
                                   :repository repository})))))

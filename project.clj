@@ -1,4 +1,4 @@
-(defproject im.chit/lucid "1.2.8"
+(defproject im.chit/lucid "1.2.10"
   :description "tools for code clarity"
   :url "https://www.github.com/zcaudate/lucidity"
   :license {:name "The MIT License"
@@ -6,6 +6,7 @@
   :aliases {"test" ["run" "-m" "hara.test" ":exit"]}
   :dependencies [[org.clojure/clojure "1.8.0"]
                  [org.clojure/core.match      "0.2.2"]
+                 
                  [im.chit/hara.common.checks  "2.4.8"]
                  [im.chit/hara.data.diff      "2.4.8"]
                  [im.chit/hara.data.nested    "2.4.8"]
@@ -13,6 +14,7 @@
                  [im.chit/hara.io.archive     "2.4.8"]
                  [im.chit/hara.io.classloader "2.4.8"]
                  [im.chit/hara.io.classpath   "2.4.8"]
+                 [im.chit/hara.io.encode      "2.4.8"]
                  [im.chit/hara.io.file        "2.4.8"]
                  [im.chit/hara.io.project     "2.4.8"]
                  [im.chit/hara.namespace      "2.4.8"]
