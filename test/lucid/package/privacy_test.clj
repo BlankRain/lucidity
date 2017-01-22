@@ -95,5 +95,20 @@
         lucid.package.user/GNUPG-SECRET
         "98B9A74D"))
 
+
+
+
+(comment
+  (require '[hara.io.encode :as encode])
+  
+  (-> (encode/from-base64 "iQEcBAABCAAGBQJXwO1zAAoJEBMxnLaYuadN0msH/2WuYDY193gbkaq1mExeigswIdf0eIi1jlthkfnjjRbNYHXujv3/o3DMoc7kKfdh29y+nalteHB668xPrbs8s2gZGzjMYbhQzI3UXBBltn+/bWv+j9wfs2eumkODxdUa4MHixDU5ZbKjdcnYxqHz5n+qc79tR/WYAmsiNIfbg9k8xIWZM06PnhbDhpnZAxXABrwQt75ygFtEaVKvOlRH2T9h6IuRjnvPNqdX65X9uleCNVHiSEEDWh7uZgc6SepU4iIDj3nolZRE4Cdd7HsI4SfRmqpvbeGovjl5olx1nCcQxK5D7Yy9IpZtvhBWdz0CQm+9U+9rT1+Um0UNCZUpCAY=")
+      (crc-24))
+  
+
+  
+  (verify signature file key)
+  
+  )
+
 (comment
   (unit/import))

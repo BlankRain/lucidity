@@ -250,10 +250,10 @@
          lucid.package.user/GNUPG-SECRET
          \"98B9A74D\")"
   {:added "1.2"}
-  [input output keyring-file sig]
+  [input output keyring-file seed]
   (let [bytes (fs/read-all-bytes input)
         rcoll (load-secret-keyring keyring-file)
-        signature  (-> (generate-signature bytes rcoll sig)
+        signature  (-> (generate-signature bytes rcoll seed)
                        (.getEncoded))]
     (->> (concat ["-----BEGIN PGP SIGNATURE-----"
                   "Version: GnuPG v2"
@@ -267,4 +267,46 @@
          (string/join "\n")
          (spit output))))
 
-(comment)  
+
+(defn load-signature [signature-file]
+  (->> (slurp signature-file)
+       (string/split-lines)
+       (reverse)
+       (drop-while (fn [input]
+                     (not (and (.startsWith input "=")
+                               (= 5 (count input))))))
+       (rest)
+       (take 6)
+       (reverse)
+       (string/join "")
+       (encode/from-base64)))
+
+;(load-signature "project.clj.asc")
+
+(defn verify
+  [input signature-file public-key]
+  (let [bytes (fs/read-all-bytes input)
+        sig (load-signature signature-file)
+        ])
+  
+  
+  )
+
+(comment
+  
+  (require '[lucid.package.user :as u])
+  
+  (def rcoll (load-secret-keyring u/GNUPG-SECRET))
+  
+  (def pair (get-keypair rcoll "98B9A74D"))
+
+  (def public-key (first pair))
+  
+  (.? public-key)
+
+  
+
+  
+  
+
+  )  
