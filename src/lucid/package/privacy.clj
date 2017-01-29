@@ -19,8 +19,7 @@
                                                  BcPublicKeyDataDecryptorFactory
                                                  BcPGPContentSignerBuilder)
            (org.bouncycastle.openpgp.bc BcPGPPublicKeyRingCollection
-                                        BcPGPSecretKeyRingCollection)
-           ))
+                                        BcPGPSecretKeyRingCollection)))
 
 (defonce +bouncy-castle+ 
   (Security/addProvider (BouncyCastleProvider.)))
