@@ -25,6 +25,14 @@
              {:signing (-> lucid.package.user/LEIN-PROFILE
                            :user)}))
 
+^{:refer lucid.package/md5-digest :added "1.2"}
+(comment "creates an md5-digest file"
+
+  (md5-digest {:file "project.clj"
+               :extension ".clj"})
+  => {:file "project.clj.md5",
+      :extension ".clj.md5"})
+
 ^{:refer lucid.package/add-authentication :added "1.2"}
 (comment "decrypts credentials.gpg and inserts the right authentication"
 

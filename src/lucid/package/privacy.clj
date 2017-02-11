@@ -6,6 +6,7 @@
   (:import (java.security Security)
            (org.bouncycastle.openpgp PGPObjectFactory
                                      PGPPublicKey
+                                     PGPPublicKeyRing
                                      PGPPrivateKey
                                      PGPSecretKey
                                      PGPSignature
@@ -14,12 +15,15 @@
            (org.bouncycastle.bcpg CRC24)
            (org.bouncycastle.jce.provider BouncyCastleProvider)
            (org.bouncycastle.openpgp.jcajce JcaPGPObjectFactory)
-           (org.bouncycastle.openpgp.operator.jcajce JcePBESecretKeyDecryptorBuilder)
+           (org.bouncycastle.openpgp.operator.jcajce JcePBESecretKeyDecryptorBuilder
+                                                     JcaKeyFingerprintCalculator
+                                                     JcaPGPKeyConverter)
            (org.bouncycastle.openpgp.operator.bc BcKeyFingerprintCalculator
                                                  BcPublicKeyDataDecryptorFactory
                                                  BcPGPContentSignerBuilder)
            (org.bouncycastle.openpgp.bc BcPGPPublicKeyRingCollection
-                                        BcPGPSecretKeyRingCollection)))
+                                        BcPGPSecretKeyRingCollection)
+           (org.bouncycastle.cms CMSSignedData)))
 
 (defonce +bouncy-castle+ 
   (Security/addProvider (BouncyCastleProvider.)))
@@ -193,6 +197,7 @@
                          (.getDataStream))]
     (slurp clear-stream)))
 
+
 (defn generate-signature
   "generates a signature given bytes and a keyring
    
@@ -282,6 +287,14 @@
 
 ;(load-signature "project.clj.asc")
 
+(defn openpgp->key [bytes]
+    (let [public-key (->> (JcaKeyFingerprintCalculator.)
+                          (PGPPublicKeyRing. bytes)
+                          (.getPublicKey))]
+      (-> (JcaPGPKeyConverter.)
+          (.setProvider "BC")
+          (.getPublicKey public-key))))
+
 (defn verify
   [input signature-file public-key]
   (let [bytes (fs/read-all-bytes input)
@@ -292,20 +305,81 @@
   )
 
 (comment
-  
+  (sign "project.clj" "project.clj.asc" u/GNUPG-SECRET "B25C13AC")
+  nil
   (require '[lucid.package.user :as u])
   
   (def rcoll (load-secret-keyring u/GNUPG-SECRET))
+  
+  (all-secret-keys rcoll)
+  ;; (#gpg.secret[25CD2515BBF92747BA0F9E8B1163CD81B25C13AC] #gpg.secret[66FB18DCA4612B2E4B31D3FE05154AA8B33631EB])
+  
+  (def pair (get-keypair rcoll "25CD2515BBF927"))
+  
+  (def public-key (first pair))
+
+  (def private-key (second pair))
+
+  (.getAlgorithm public-key)
+  => 1
+
+  (.getBitStrength public-key)
+  => 2048
+  (.? public-key :name)
+  
+  (. PGPPublicKeyRing)
   
   (def pair (get-keypair rcoll "98B9A74D"))
 
   (def public-key (first pair))
   
-  (.? public-key)
+  (.? public-key :name)
+  ("MASTER_KEY_CERTIFICATION_TYPES" "addCert" "addCertification" "encode" "fingerprint" "getAlgorithm" "getBitStrength" "getCreationTime" "getEncoded" "getExpirationTimeFromSig" "getFingerprint" "getKeyID" "getKeySignatures" "getPublicKeyPacket" "getRawUserIDs" "getSignatures" "getSignaturesForID" "getSignaturesForKeyID" "getSignaturesForUserAttribute" "getSignaturesOfType" "getTrustData" "getUserAttributes" "getUserIDs" "getValidDays" "getValidSeconds" "getVersion" "hasRevocation" "idSigs" "idTrusts" "ids" "init" "isEncryptionKey" "isMasterKey" "isRevoked" "keyID" "keySigs" "keyStrength" "new" "publicPk" "removeCert" "removeCertification" "subSigs" "trustPk")
 
+  (encode/to-base64 (.getEncoded public-key))
+
+  "mQENBFh1kBcBCADMUkNW2qFgeRnornjhT3lt73wTGcO9rt+Ktr1tcopmOPTfNq3
+    feZNFHRUsBt0Nnuj9+vSD2cwFRoZDNulhnBD8lAJYOD427uvV+KBDF/5pCQKh2S
+    mDK8tJI/ncLIlX4SFa8F9f36FySglpkzA59IFtHdUBz9w+PJRqUQ5MVRzNHYBbv
+    6aeIWwl46KrL3eibRgBDVuEOKAoesdb+xErs9cqg3KSVi01XBgr+XMSgOBz4J3f
+    J4HdibsJdz1+113aKT++4LUSuuyeVbw3K/ZgMkrsyeJw84sHhF2kDu61atSUsQE
+    nJwBF2sPA9V/i28fftxodgg5qbEs8egdsw/wxGzsfABEBAAG0K0NocmlzIFpoZW
+    5nIChjemhlbmcpIDxjemhlbmdAYXRsYXNzaWFuLmNvbT6JATkEEwEIACMFAlh1k
+    BcCGwMHCwkIBwMCAQYVCAIJCgsEFgIDAQIeAQIXgAAKCRARY82BslwTrMvtB/4t
+    LoRH91p09vM1sSQ77RC+XwQqhhvN1BAeqGxqZpgCO6Ld5KRh8f4mFY8nXjDCSyy
+    ydTBzIUp6aG0f+2EBhArtk/oU/pi8D4zHoeBkrl23/234s1kBI5F2g2kd6itwP8
+    ekimaUyNFdPIN1dPwdxhuspOUtFNR+HsT3BT32v4Afd7sWVNTFrkapxTdxxZkVb
+    +FS0wbuzFzB2gb8AvEGevzF/hQXOf3r8QzUQoEZ14pigNu/arlXzEuzXJXXT/AQ
+    nAzbVENoFrhojxqEU7RxH8J4nao8OfpYfL7w3T7PC3nFFSTYSwvYItGkl9DPPiZ
+    GWZTrb6VfpFGNLHwCoLOaf8ShsAIAAA=="
+
+  
+  
+  (openpgp->key (encode/from-base64 "mQENBFh1kBcBCADMUkNW2qFgeRnornjhT3lt73wTGcO9rt+Ktr1tcopmOPTfNq3feZNFHRUsBt0Nnuj9+vSD2cwFRoZDNulhnBD8lAJYOD427uvV+KBDF/5pCQKh2SmDK8tJI/ncLIlX4SFa8F9f36FySglpkzA59IFtHdUBz9w+PJRqUQ5MVRzNHYBbv6aeIWwl46KrL3eibRgBDVuEOKAoesdb+xErs9cqg3KSVi01XBgr+XMSgOBz4J3fJ4HdibsJdz1+113aKT++4LUSuuyeVbw3K/ZgMkrsyeJw84sHhF2kDu61atSUsQEnJwBF2sPA9V/i28fftxodgg5qbEs8egdsw/wxGzsfABEBAAG0K0NocmlzIFpoZW5nIChjemhlbmcpIDxjemhlbmdAYXRsYXNzaWFuLmNvbT6JATkEEwEIACMFAlh1kBcCGwMHCwkIBwMCAQYVCAIJCgsEFgIDAQIeAQIXgAAKCRARY82BslwTrMvtB/4tLoRH91p09vM1sSQ77RC+XwQqhhvN1BAeqGxqZpgCO6Ld5KRh8f4mFY8nXjDCSyyydTBzIUp6aG0f+2EBhArtk/oU/pi8D4zHoeBkrl23/234s1kBI5F2g2kd6itwP8ekimaUyNFdPIN1dPwdxhuspOUtFNR+HsT3BT32v4Afd7sWVNTFrkapxTdxxZkVb+FS0wbuzFzB2gb8AvEGevzF/hQXOf3r8QzUQoEZ14pigNu/arlXzEuzXJXXT/AQnAzbVENoFrhojxqEU7RxH8J4nao8OfpYfL7w3T7PC3nFFSTYSwvYItGkl9DPPiZGWZTrb6VfpFGNLHwCoLOaf8ShsAIAAA=="))
+  
+  (security/->key {:type "RSA", :mode :public, :format "X.509", :encoded "mQENBFh1kBcBCADMUkNW2qFgeRnornjhT3lt73wTGcO9rt+Ktr1tcopmOPTfNq3feZNFHRUsBt0Nnuj9+vSD2cwFRoZDNulhnBD8lAJYOD427uvV+KBDF/5pCQKh2SmDK8tJI/ncLIlX4SFa8F9f36FySglpkzA59IFtHdUBz9w+PJRqUQ5MVRzNHYBbv6aeIWwl46KrL3eibRgBDVuEOKAoesdb+xErs9cqg3KSVi01XBgr+XMSgOBz4J3fJ4HdibsJdz1+113aKT++4LUSuuyeVbw3K/ZgMkrsyeJw84sHhF2kDu61atSUsQEnJwBF2sPA9V/i28fftxodgg5qbEs8egdsw/wxGzsfABEBAAG0K0NocmlzIFpoZW5nIChjemhlbmcpIDxjemhlbmdAYXRsYXNzaWFuLmNvbT6JATkEEwEIACMFAlh1kBcCGwMHCwkIBwMCAQYVCAIJCgsEFgIDAQIeAQIXgAAKCRARY82BslwTrMvtB/4tLoRH91p09vM1sSQ77RC+XwQqhhvN1BAeqGxqZpgCO6Ld5KRh8f4mFY8nXjDCSyyydTBzIUp6aG0f+2EBhArtk/oU/pi8D4zHoeBkrl23/234s1kBI5F2g2kd6itwP8ekimaUyNFdPIN1dPwdxhuspOUtFNR+HsT3BT32v4Afd7sWVNTFrkapxTdxxZkVb+FS0wbuzFzB2gb8AvEGevzF/hQXOf3r8QzUQoEZ14pigNu/arlXzEuzXJXXT/AQnAzbVENoFrhojxqEU7RxH8J4nao8OfpYfL7w3T7PC3nFFSTYSwvYItGkl9DPPiZGWZTrb6VfpFGNLHwCoLOaf8ShsAIAAA=="})
+
+  
+
+  (require 'hara.io.file)
+  (hara.io.file/read-all-bytes)
+  ;; gpg --list-packets hello.asc
+  (hara.io.file/write-all-bytes "hello.asc" (encode/from-base64 "mQENBFh1kBcBCADMUkNW2qFgeRnornjhT3lt73wTGcO9rt+Ktr1tcopmOPTfNq3feZNFHRUsBt0Nnuj9+vSD2cwFRoZDNulhnBD8lAJYOD427uvV+KBDF/5pCQKh2SmDK8tJI/ncLIlX4SFa8F9f36FySglpkzA59IFtHdUBz9w+PJRqUQ5MVRzNHYBbv6aeIWwl46KrL3eibRgBDVuEOKAoesdb+xErs9cqg3KSVi01XBgr+XMSgOBz4J3fJ4HdibsJdz1+113aKT++4LUSuuyeVbw3K/ZgMkrsyeJw84sHhF2kDu61atSUsQEnJwBF2sPA9V/i28fftxodgg5qbEs8egdsw/wxGzsfABEBAAG0K0NocmlzIFpoZW5nIChjemhlbmcpIDxjemhlbmdAYXRsYXNzaWFuLmNvbT6JATkEEwEIACMFAlh1kBcCGwMHCwkIBwMCAQYVCAIJCgsEFgIDAQIeAQIXgAAKCRARY82BslwTrMvtB/4tLoRH91p09vM1sSQ77RC+XwQqhhvN1BAeqGxqZpgCO6Ld5KRh8f4mFY8nXjDCSyyydTBzIUp6aG0f+2EBhArtk/oU/pi8D4zHoeBkrl23/234s1kBI5F2g2kd6itwP8ekimaUyNFdPIN1dPwdxhuspOUtFNR+HsT3BT32v4Afd7sWVNTFrkapxTdxxZkVb+FS0wbuzFzB2gb8AvEGevzF/hQXOf3r8QzUQoEZ14pigNu/arlXzEuzXJXXT/AQnAzbVENoFrhojxqEU7RxH8J4nao8OfpYfL7w3T7PC3nFFSTYSwvYItGkl9DPPiZGWZTrb6VfpFGNLHwCoLOaf8ShsAIAAA=="))
+  (security/generate-key-pair "RSA" {:length 8192})
+  (security/->key {:type "RSA", :mode :public, :format "X.509", :encoded "MIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEAkh8tQnQGJ0X5ZXUvm9yZGEYmdDzhW0gRlTvYroL37i1jQQEKnAYooVgno0mpxtiEcpnpzkKzPyn/bo9BstmXXQXf5oB22PZwzqAz0o7BHYvbb5x9ImymjPHhFqRiF6+aF5+cOMkWipu86neGZF6W+gtBwcLhp71Pe9jTRUz3kj/+t8h31NqhHiLq4KnOTVwGvt1KexYU0p6H88T0ww2kMoveBka0/5Tw2ABafB+Y9ctXs/x43HGDJMbG93DB0YGcF6ispG2S95IfOC6IDVb+iTBzXC79uFzJQRO5rUQbuy1GGWWXjxs+2WIXgPLbF7jh13W3xQJgRDyqm8NGmmgOnX9+m4mYGuf5ozjgkfULVP68qII6rz4P23hdzYmERabGJFVhD/uFavuZW5h4ddSYU3K6Bwq0khosumjhTZ4Rb80e4TeeTJissARd0jkEnGEubIhqtYywp2fllVUXt9jTupr81GZ+s3YAr9pF31F/ESYuVdzT1regvvE1ySVMuaeewetHpy/1neNlu/duJNYupUdse16L5H/Vv3DBKGimjBv2HmgDVO2pBUnwPSXGNl1woKE0lGWvq/mfJXYbvjINV35b8/Phsx1q588imJALEOlbSfuDnWZfuLD+Bi3D33YaqIw5B9LH9KvfCK19287GOa23FwPBRYGQOCPKDUzT7wcCAwEAAQ=="}))
+
+
+  
+  
+  
+  
+  
+  
+  
+  
   
 
   
   
 
-  )  
+    

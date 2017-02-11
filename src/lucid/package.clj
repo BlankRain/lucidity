@@ -90,20 +90,21 @@
          (assoc repository :authentication))))
 
 (defn md5-digest
+  "creates an md5-digest file
+ 
+   (md5-digest {:file \"project.clj\"
+                :extension \".clj\"})
+   => {:file \"project.clj.md5\",
+       :extension \".clj.md5\"}"
+  {:added "1.2"}
   [{:keys [file extension]}]
   (let [content (-> (fs/read-all-bytes file)
                     (security/digest "MD5")
                     (encode/to-hex))
         file (str file ".md5")
         extension (str extension ".md5")
-        _ (spit content file)]
+        _ (spit file content)]
     {:file file :extension extension}))
-
-(defn add-digest
-  [entries]
-  (->> entries
-       (map md5-digest)
-       (concat entries)))
 
 (defn deploy-project
   "creates the jar and pom files and deploys to clojars
@@ -124,17 +125,16 @@
                       :extension "jar"}
                      {:file pom-file
                       :extension "pom"}]
-         signing  #_(comment "Fix CRC24, Signature Verification")
-         (-> user/LEIN-PROFILE
-             slurp
-             read-string
-             (get-in [:user :signing :gpg-key]))
          
-         artifacts (if-not signing
-                     artifacts
+         ;;(comment "Fix CRC24, Signature Verification")
+         artifacts (if-let [signing (-> user/LEIN-PROFILE
+                                        slurp
+                                        read-string
+                                        (get-in [:user :signing :gpg-key]))]
                      (->> artifacts
                           (map #(sign-file % {:signing signing}))
-                          (concat artifacts)))
+                          (concat artifacts))
+                     artifacts)
          
          artifacts (->> artifacts
                         (map md5-digest)
@@ -144,3 +144,8 @@
          (->> (classpath/artifact :coord))
          (aether/deploy-artifact {:artifacts artifacts
                                   :repository repository})))))
+
+(comment
+  (require '[lucid.unit :as unit])
+  (unit/import)
+  )

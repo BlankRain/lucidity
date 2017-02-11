@@ -1,7 +1,11 @@
 (ns lucid.package.privacy-test
   (:use hara.test)
   (:require [lucid.package.privacy :refer :all]
-            [lucid.package.user :as package]))
+            [lucid.package.user :as package]
+            [hara.io
+             [file :as fs]
+             [encode :as encode]]
+            [hara.security :as security]))
 
 ^{:refer lucid.package.privacy/load-public-keyring :added "1.2"}
 (comment "loads a public keyring"
@@ -109,6 +113,32 @@
   (verify signature file key)
   
   )
-
 (comment
-  (unit/import))
+  (def signature (load-signature "project.clj.asc"))
+  (def orig (fs/read-all-bytes "project.clj"))
+  (def public-key
+    (openpgp->key (encode/from-base64 "mQENBFh1kBcBCADMUkNW2qFgeRnornjhT3lt73wTGcO9rt+Ktr1tcopmOPTfNq3feZNFHRUsBt0Nnuj9+vSD2cwFRoZDNulhnBD8lAJYOD427uvV+KBDF/5pCQKh2SmDK8tJI/ncLIlX4SFa8F9f36FySglpkzA59IFtHdUBz9w+PJRqUQ5MVRzNHYBbv6aeIWwl46KrL3eibRgBDVuEOKAoesdb+xErs9cqg3KSVi01XBgr+XMSgOBz4J3fJ4HdibsJdz1+113aKT++4LUSuuyeVbw3K/ZgMkrsyeJw84sHhF2kDu61atSUsQEnJwBF2sPA9V/i28fftxodgg5qbEs8egdsw/wxGzsfABEBAAG0K0NocmlzIFpoZW5nIChjemhlbmcpIDxjemhlbmdAYXRsYXNzaWFuLmNvbT6JATkEEwEIACMFAlh1kBcCGwMHCwkIBwMCAQYVCAIJCgsEFgIDAQIeAQIXgAAKCRARY82BslwTrMvtB/4tLoRH91p09vM1sSQ77RC+XwQqhhvN1BAeqGxqZpgCO6Ld5KRh8f4mFY8nXjDCSyyydTBzIUp6aG0f+2EBhArtk/oU/pi8D4zHoeBkrl23/234s1kBI5F2g2kd6itwP8ekimaUyNFdPIN1dPwdxhuspOUtFNR+HsT3BT32v4Afd7sWVNTFrkapxTdxxZkVb+FS0wbuzFzB2gb8AvEGevzF/hQXOf3r8QzUQoEZ14pigNu/arlXzEuzXJXXT/AQnAzbVENoFrhojxqEU7RxH8J4nao8OfpYfL7w3T7PC3nFFSTYSwvYItGkl9DPPiZGWZTrb6VfpFGNLHwCoLOaf8ShsAIAAA==")))
+  (security/verify orig signature public-key {:algorithm "SHA256withRSA"})
+  
+  (CMSSignedData. signature)
+
+  
+  (require '[lucid.mind :refer :all])
+  (import org.bouncycastle.cms.CMSSignedData)
+  (unit/import)
+
+  (def pattern "25CD2515BBF92")
+  
+  (def rcoll (load-secret-keyring lucid.package.user/GNUPG-SECRET))
+
+  (def kpair (get-keypair rcoll pattern))
+
+  (def pub-key (first kpair))
+
+  (def pri-key (second kpair))
+  
+  (def sig (generate-signature (fs/read-all-bytes "project.clj")
+                               (load-secret-keyring lucid.package.user/GNUPG-SECRET)
+                               pattern))
+
+  )
