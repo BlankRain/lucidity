@@ -7,6 +7,7 @@
   (:import (java.security Security)
            (org.bouncycastle.openpgp PGPObjectFactory
                                      PGPPublicKey
+                                     PGPPublicKeyRing
                                      PGPPrivateKey
                                      PGPSecretKey
                                      PGPSignature
@@ -16,13 +17,16 @@
                                   BCPGInputStream)
            (org.bouncycastle.jce.provider BouncyCastleProvider)
            (org.bouncycastle.openpgp.jcajce JcaPGPObjectFactory)
-           (org.bouncycastle.openpgp.operator.jcajce JcePBESecretKeyDecryptorBuilder)
+           (org.bouncycastle.openpgp.operator.jcajce JcePBESecretKeyDecryptorBuilder
+                                                     JcaKeyFingerprintCalculator
+                                                     JcaPGPKeyConverter)
            (org.bouncycastle.openpgp.operator.bc BcKeyFingerprintCalculator
                                                  BcPublicKeyDataDecryptorFactory
                                                  BcPGPContentSignerBuilder
                                                  BcPGPContentVerifierBuilderProvider)
            (org.bouncycastle.openpgp.bc BcPGPPublicKeyRingCollection
-                                        BcPGPSecretKeyRingCollection)))
+                                        BcPGPSecretKeyRingCollection)
+           (org.bouncycastle.cms CMSSignedData)))
 
 (defonce +bouncy-castle+ 
   (Security/addProvider (BouncyCastleProvider.)))
@@ -195,6 +199,7 @@
                          (.nextObject)
                          (.getDataStream))]
     (slurp clear-stream)))
+
 
 (defn generate-signature
   "generates a signature given bytes and a keyring

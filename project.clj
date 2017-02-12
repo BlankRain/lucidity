@@ -39,6 +39,7 @@
                  [org.ow2.asm/asm "5.1"]
                  [org.bouncycastle/bcprov-jdk15on "1.55"]
                  [org.bouncycastle/bcpg-jdk15on "1.55"]
+                 [org.bouncycastle/bcpkix-jdk15on "1.55"]
                  [version-clj/version-clj "0.1.2"]
                  [rewrite-clj/rewrite-clj "0.5.2"]
                  [markdown-clj/markdown-clj "0.9.89"]

@@ -3,6 +3,10 @@
   (:require [lucid.package.privacy :refer :all]
             [lucid.package.user :as package]
             [hara.io.file :as fs]))
+            [hara.io
+             [file :as fs]
+             [encode :as encode]]
+            [hara.security :as security]))
 
 ^{:refer lucid.package.privacy/load-public-keyring :added "1.2"}
 (comment "loads a public keyring"
