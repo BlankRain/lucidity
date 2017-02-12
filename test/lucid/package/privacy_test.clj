@@ -2,7 +2,6 @@
   (:use hara.test)
   (:require [lucid.package.privacy :refer :all]
             [lucid.package.user :as package]
-            [hara.io.file :as fs]))
             [hara.io
              [file :as fs]
              [encode :as encode]]
