@@ -17,6 +17,7 @@
                  [im.chit/hara.io.encode      "2.4.8"]
                  [im.chit/hara.io.file        "2.4.8"]
                  [im.chit/hara.io.project     "2.4.8"]
+                 [im.chit/hara.io.watch       "2.4.8"]
                  [im.chit/hara.namespace      "2.4.8"]
                  [im.chit/hara.object         "2.4.8"]
                  [im.chit/hara.reflect        "2.4.8"]

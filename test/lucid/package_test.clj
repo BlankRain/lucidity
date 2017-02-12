@@ -31,6 +31,27 @@
   (add-authentication {:id "clojars"}
                       {}))
 
+
+^{:refer lucid.package/create-digest :added "1.2"}
+(comment "creates a digest given a file and a digest type"
+
+  (create-digest "MD5"
+                 "md5"
+                 {:file "project.clj"
+                  :extension "clj"})
+  => {:file "project.clj.md5",
+      :extension "clj.md5"})
+
+
+^{:refer lucid.package/add-digest :added "1.2"}
+(comment "adds MD5 and SHA1 digests to all artifacts"
+
+  (add-digest [{:file "project.clj",
+                :extension "clj"}])
+  => [{:file "project.clj.md5", :extension "clj.md5"}
+      {:file "project.clj.sha1", :extension "clj.sha1"}
+      {:file "project.clj", :extension "clj"}])
+
 (comment
   (lucid.unit/import)
   )

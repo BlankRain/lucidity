@@ -1,6 +1,7 @@
 (ns lucid.package.privacy
   (:require [hara.io.file :as fs]
             [hara.io.encode :as encode]
+            [hara.reflect :as reflect]
             [hara.security :as security]
             [clojure.string :as string])
   (:import (java.security Security)
@@ -11,13 +12,15 @@
                                      PGPSignature
                                      PGPSignatureGenerator
                                      PGPUtil)
-           (org.bouncycastle.bcpg CRC24)
+           (org.bouncycastle.bcpg CRC24
+                                  BCPGInputStream)
            (org.bouncycastle.jce.provider BouncyCastleProvider)
            (org.bouncycastle.openpgp.jcajce JcaPGPObjectFactory)
            (org.bouncycastle.openpgp.operator.jcajce JcePBESecretKeyDecryptorBuilder)
            (org.bouncycastle.openpgp.operator.bc BcKeyFingerprintCalculator
                                                  BcPublicKeyDataDecryptorFactory
-                                                 BcPGPContentSignerBuilder)
+                                                 BcPGPContentSignerBuilder
+                                                 BcPGPContentVerifierBuilderProvider)
            (org.bouncycastle.openpgp.bc BcPGPPublicKeyRingCollection
                                         BcPGPSecretKeyRingCollection)))
 
@@ -182,9 +185,9 @@
                          (iterator-seq)
                          (first))
         key-id       (.getKeyID enc-data)
-        [_ prv-key]  (get-keypair rcoll key-id)
+        [_ private-key]  (get-keypair rcoll key-id)
         clear-stream (-> (.getDataStream enc-data
-                                         (BcPublicKeyDataDecryptorFactory. prv-key))
+                                         (BcPublicKeyDataDecryptorFactory. private-key))
                          (JcaPGPObjectFactory.)
                          (.nextObject)
                          (.getDataStream)
@@ -200,16 +203,17 @@
                        (load-secret-keyring lucid.package.user/GNUPG-SECRET)
                        \"98B9A74D\")"
   {:added "1.2"}
-  [bytes rcoll sig]
-  (let [[pub-key prv-key]  (get-keypair rcoll sig)
-        sig-gen  (-> (BcPGPContentSignerBuilder.
-                      (.getAlgorithm pub-key)
-                      PGPUtil/SHA256)
-                     (PGPSignatureGenerator.))
-        sig-gen  (doto sig-gen
-                   (.init PGPSignature/DEFAULT_CERTIFICATION prv-key)
-                   (.update bytes))]
-    (.generate sig-gen)))
+  ([bytes [public-key private-key]]
+   (let [sig-gen  (-> (BcPGPContentSignerBuilder.
+                       (.getAlgorithm public-key)
+                       PGPUtil/SHA256)
+                      (PGPSignatureGenerator.))
+         sig-gen  (doto sig-gen
+                    (.init PGPSignature/BINARY_DOCUMENT private-key)
+                    (.update bytes))]
+     (.generate sig-gen)))
+  ([bytes rcoll key-id]
+   (generate-signature bytes (get-keypair rcoll key-id))))
 
 (defmethod print-method PGPSignature
   [v ^java.io.Writer w]
@@ -222,7 +226,7 @@
    => [\"=6Fko\" [-24 89 40] 15227176]"
   {:added "1.2"}
   [input]
-  (let [crc (org.bouncycastle.bcpg.CRC24.)
+  (let [crc (CRC24.)
         _   (doseq [i (seq input)]
               (.update crc i))
         val (.getValue crc)
@@ -241,34 +245,35 @@
      bytes
      val]))
 
-(defn sign
-  "generates a output gpg signature for an input file
+(defn write-sig-file
+  "writes bytes to a GPG compatible file
  
-   (sign \"project.clj\"
-        \"project.clj.asc\"
-         lucid.package.user/GNUPG-SECRET
-         \"98B9A74D\")"
+   (write-sig-file \"project.clj.asc\"
+                  (-> (generate-signature (fs/read-all-bytes \"project.clj\")
+                                           (load-secret-keyring
+                                            lucid.package.user/GNUPG-SECRET)
+                                           \"98B9A74D\")
+                       (.getEncoded)))"
   {:added "1.2"}
-  [input output keyring-file seed]
-  (let [bytes (fs/read-all-bytes input)
-        rcoll (load-secret-keyring keyring-file)
-        signature  (-> (generate-signature bytes rcoll seed)
-                       (.getEncoded))]
-    (->> (concat ["-----BEGIN PGP SIGNATURE-----"
-                  "Version: GnuPG v2"
-                  ""]
-                 (->> signature
-                      (encode/to-base64)
-                      (partition-all 64)
-                      (map #(apply str %)))
-                 [(first (crc-24 signature))
-                  "-----END PGP SIGNATURE-----"])
-         (string/join "\n")
-         (spit output))))
+  [sig-file bytes]
+  (->> (concat ["-----BEGIN PGP SIGNATURE-----"
+                ""]
+               (->> bytes
+                    (encode/to-base64)
+                    (partition-all 64)
+                    (map #(apply str %)))
+               [(first (crc-24 bytes))
+                "-----END PGP SIGNATURE-----"])
+       (string/join "\n")
+       (spit sig-file)))
 
-
-(defn load-signature [signature-file]
-  (->> (slurp signature-file)
+(defn read-sig-file
+  "reads bytes from a GPG compatible file
+ 
+   (read-sig-file \"project.clj.asc\")"
+  {:added "1.2"}
+  [sig-file]
+  (->> (slurp sig-file)
        (string/split-lines)
        (reverse)
        (drop-while (fn [input]
@@ -280,32 +285,61 @@
        (string/join "")
        (encode/from-base64)))
 
-;(load-signature "project.clj.asc")
+(defn sign
+  "generates a output gpg signature for an input file
+ 
+   (sign \"project.clj\"
+        \"project.clj.asc\"
+         lucid.package.user/GNUPG-SECRET
+         \"98B9A74D\")"
+  {:added "1.2"}
+  ([input sig-file [public-key private-key :as keypair]]
+   (let [input-bytes (fs/read-all-bytes input)
+         sig-bytes  (-> (generate-signature input-bytes keypair)
+                        (.getEncoded))]
+     (write-sig-file sig-file sig-bytes)
+     sig-bytes))
+  ([input sig-file keyring-file key-id]
+   (let [rcoll (load-secret-keyring keyring-file)
+         keypair (get-keypair rcoll key-id)]
+     (sign input sig-file keypair))))
+
+(defn pgp-signature
+  "returns a gpg signature from encoded bytes
+ 
+   (->  (generate-signature (fs/read-all-bytes \"project.clj\")
+                           (load-secret-keyring
+                             lucid.package.user/GNUPG-SECRET)
+                            \"98B9A74D\")
+        (.getEncoded)
+        (pgp-signature))"
+  {:added "1.2"}
+  [bytes]
+  (let [make-pgp-signature (reflect/query-class PGPSignature ["new" [BCPGInputStream] :#])]
+    (-> bytes
+        (java.io.ByteArrayInputStream.)
+        (BCPGInputStream.)
+        (make-pgp-signature))))
 
 (defn verify
-  [input signature-file public-key]
-  (let [bytes (fs/read-all-bytes input)
-        sig (load-signature signature-file)
-        ])
-  
-  
-  )
-
-(comment
-  
-  (require '[lucid.package.user :as u])
-  
-  (def rcoll (load-secret-keyring u/GNUPG-SECRET))
-  
-  (def pair (get-keypair rcoll "98B9A74D"))
-
-  (def public-key (first pair))
-  
-  (.? public-key)
-
-  
-
-  
-  
-
-  )  
+  "verifies that the signature works
+ 
+   (verify \"project.clj\"
+           \"project.clj.asc\"
+           lucid.package.user/GNUPG-SECRET
+           \"98B9A74D\")
+   => true"
+  {:added "1.2"}
+  ([input sig-file public-key]
+   (let [bytes (fs/read-all-bytes input)
+         sig-bytes (read-sig-file sig-file)
+         sig (if (zero? (count sig-bytes))
+               (throw (Exception. (str "Not a valid signature file: " sig-file)))
+               (pgp-signature sig-bytes))]
+     (.init sig (BcPGPContentVerifierBuilderProvider.) public-key)
+     (.update sig bytes)
+     (.verify sig)))
+  ([input sig-file keyring-file key-id]
+   (let [rcoll (load-secret-keyring keyring-file)
+         [public-key _] (get-keypair rcoll key-id)]
+     (verify input sig-file public-key))))

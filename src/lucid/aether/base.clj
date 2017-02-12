@@ -9,7 +9,7 @@
                    :url "https://clojars.org/repo"}
                   {:id "central"
                    :type "default"
-                   :url "http://repo1.maven.org/maven2/"}]})
+                   :url "https://repo1.maven.org/maven2/"}]})
 
 (defrecord Aether [])
 
@@ -24,10 +24,10 @@
    => (contains
        {:repositories [{:id \"clojars\",
                         :type \"default\",
-                        :url \"http://clojars.org/repo\"}
+                        :url \"https://clojars.org/repo\"}
                        {:id \"central\",
                        :type \"default\",
-                        :url \"http://central.maven.org/maven2/\"}],
+                        :url \"https://repo1.maven.org/maven2/\"}],
         :system org.eclipse.aether.RepositorySystem
         :session org.eclipse.aether.RepositorySystemSession})"
   {:added "1.1"}

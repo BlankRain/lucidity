@@ -1,7 +1,8 @@
 (ns lucid.package.privacy-test
   (:use hara.test)
   (:require [lucid.package.privacy :refer :all]
-            [lucid.package.user :as package]))
+            [lucid.package.user :as package]
+            [hara.io.file :as fs]))
 
 ^{:refer lucid.package.privacy/load-public-keyring :added "1.2"}
 (comment "loads a public keyring"
@@ -87,6 +88,21 @@
                       (load-secret-keyring lucid.package.user/GNUPG-SECRET)
                       "98B9A74D"))
 
+^{:refer lucid.package.privacy/write-sig-file :added "1.2"}
+(comment "writes bytes to a GPG compatible file"
+
+  (write-sig-file "project.clj.asc"
+                  (-> (generate-signature (fs/read-all-bytes "project.clj")
+                                          (load-secret-keyring
+                                           lucid.package.user/GNUPG-SECRET)
+                                          "98B9A74D")
+                      (.getEncoded))))
+
+^{:refer lucid.package.privacy/read-sig-file :added "1.2"}
+(comment "reads bytes from a GPG compatible file"
+
+  (read-sig-file "project.clj.asc"))
+
 ^{:refer lucid.package.privacy/sign :added "1.2"}
 (comment "generates a output gpg signature for an input file"
 
@@ -95,20 +111,24 @@
         lucid.package.user/GNUPG-SECRET
         "98B9A74D"))
 
+^{:refer lucid.package.privacy/pgp-signature :added "1.2"}
+(comment "returns a gpg signature from encoded bytes"
 
+  (->  (generate-signature (fs/read-all-bytes "project.clj")
+                           (load-secret-keyring
+                            lucid.package.user/GNUPG-SECRET)
+                           "98B9A74D")
+       (.getEncoded)
+       (pgp-signature)))
 
+^{:refer lucid.package.privacy/verify :added "1.2"}
+(comment "verifies that the signature works"
+
+  (verify "project.clj"
+          "project.clj.asc"
+          lucid.package.user/GNUPG-SECRET
+          "98B9A74D")
+  => true)
 
 (comment
-  (require '[hara.io.encode :as encode])
-  
-  (-> (encode/from-base64 "iQEcBAABCAAGBQJXwO1zAAoJEBMxnLaYuadN0msH/2WuYDY193gbkaq1mExeigswIdf0eIi1jlthkfnjjRbNYHXujv3/o3DMoc7kKfdh29y+nalteHB668xPrbs8s2gZGzjMYbhQzI3UXBBltn+/bWv+j9wfs2eumkODxdUa4MHixDU5ZbKjdcnYxqHz5n+qc79tR/WYAmsiNIfbg9k8xIWZM06PnhbDhpnZAxXABrwQt75ygFtEaVKvOlRH2T9h6IuRjnvPNqdX65X9uleCNVHiSEEDWh7uZgc6SepU4iIDj3nolZRE4Cdd7HsI4SfRmqpvbeGovjl5olx1nCcQxK5D7Yy9IpZtvhBWdz0CQm+9U+9rT1+Um0UNCZUpCAY=")
-      (crc-24))
-  
-
-  
-  (verify signature file key)
-  
-  )
-
-(comment
-  (unit/import))
+  (./import))

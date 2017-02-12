@@ -89,21 +89,38 @@
          second
          (assoc repository :authentication))))
 
-(defn md5-digest
-  [{:keys [file extension]}]
+(defn create-digest
+  "creates a digest given a file and a digest type
+ 
+   (create-digest \"MD5\"
+                  \"md5\"
+                  {:file \"project.clj\"
+                   :extension \"clj\"})
+   => {:file \"project.clj.md5\",
+       :extension \"clj.md5\"}"
+  {:added "1.2"}
+  [algorithm suffix {:keys [file extension] :as artifact}]
   (let [content (-> (fs/read-all-bytes file)
                     (security/digest "MD5")
                     (encode/to-hex))
-        file (str file ".md5")
-        extension (str extension ".md5")
-        _ (spit content file)]
+        file (str file "." suffix)
+        extension (str extension "." suffix)
+        _ (spit file content)]
     {:file file :extension extension}))
 
 (defn add-digest
-  [entries]
-  (->> entries
-       (map md5-digest)
-       (concat entries)))
+  "adds MD5 and SHA1 digests to all artifacts
+ 
+   (add-digest [{:file \"project.clj\",
+                 :extension \"clj\"}])
+   => [{:file \"project.clj.md5\", :extension \"clj.md5\"}
+       {:file \"project.clj.sha1\", :extension \"clj.sha1\"}
+       {:file \"project.clj\", :extension \"clj\"}]"
+  {:added "1.2"}
+  [artifacts]
+  (concat (mapv (partial create-digest "MD5" "md5") artifacts)
+          (mapv (partial create-digest "SHA1" "sha1") artifacts)
+          artifacts))
 
 (defn deploy-project
   "creates the jar and pom files and deploys to clojars
@@ -124,21 +141,17 @@
                       :extension "jar"}
                      {:file pom-file
                       :extension "pom"}]
-         signing  #_(comment "Fix CRC24, Signature Verification")
-         (-> user/LEIN-PROFILE
-             slurp
-             read-string
-             (get-in [:user :signing :gpg-key]))
+         signing  (-> user/LEIN-PROFILE
+                      slurp
+                      read-string
+                      (get-in [:user :signing :gpg-key]))
          
-         artifacts (if-not signing
-                     artifacts
-                     (->> artifacts
-                          (map #(sign-file % {:signing signing}))
-                          (concat artifacts)))
-         
-         artifacts (->> artifacts
-                        (map md5-digest)
-                        (concat artifacts))]
+         artifacts (cond-> artifacts
+                     signing
+                     (->> (map #(sign-file % {:signing signing}))
+                          (concat artifacts))
+                     true
+                     (add-digest))]
      (-> project
          (select-keys [:group :artifact :version])
          (->> (classpath/artifact :coord))

@@ -12,6 +12,6 @@
                        :url "https://clojars.org/repo"}
                       {:id "central",
                        :type "default",
-                       :url "http://repo1.maven.org/maven2/"}],
+                       :url "https://repo1.maven.org/maven2/"}],
        :system org.eclipse.aether.RepositorySystem
        :session org.eclipse.aether.RepositorySystemSession}))
