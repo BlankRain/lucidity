@@ -119,7 +119,7 @@
   {:added "1.2"}
   [artifacts]
   (concat (mapv (partial create-digest "MD5" "md5") artifacts)
-          (mapv (partial create-digest "SHA1" "sha1") artifacts)
+          ;;(mapv (partial create-digest "SHA1" "sha1") artifacts)
           artifacts))
 
 (defn deploy-project

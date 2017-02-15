@@ -15,4 +15,5 @@
 
 (comment
 
-  (deploy (project/project "../hara/project.clj")))
+  (deploy (project/project "../hara/project.clj"))
+  (deploy (project/project)))

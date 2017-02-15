@@ -1,0 +1,83 @@
+(ns lucid.git
+  (:require [lucid.git.api.commands :as commands]
+            [lucid.git.api.repository :as repository]
+            [lucid.git.api.difference :as difference]
+            [lucid.git.interop :as interop]
+            [hara.object :as object]
+            [hara.namespace.import :as ns])
+  (:import org.eclipse.jgit.api.Git))
+
+(ns/import lucid.git.api.repository [repository repository? list-commits list-files resolve-id raw blob]
+           lucid.git.api.difference [list-difference list-file-changes])
+
+(defonce ^:dynamic *dir* nil)
+
+(defn git-help [all-commands]
+  (let [out (-> all-commands keys sort vec)]
+    (println "\nSubtasks for git are:\n\n")
+    (println out)
+    out))
+
+(defn git-command-help [cmd]
+  (let [opts (reduce-kv (fn [m k res]
+                          (assoc m k (commands/command-input res)))
+                        {} (commands/command-options cmd))]
+    (println "Options are: " opts)
+    opts))
+
+(defn wrap-help [f]
+  (fn  [cmd inputs]
+    (if (some #{:? :help} inputs)
+      (git-command-help cmd)
+      (f cmd inputs))))
+
+(defn wrap-result [f]
+  (fn [cmd inputs]
+    (let [res (->> (filter #(not= :& %) inputs)
+                   (f cmd))]
+      (if (some #{:&} inputs)
+        res
+        (object/to-data res)))))
+
+(defn run-base [cmd inputs]
+  (-> ^java.util.concurrent.Callable (commands/command-initialize-inputs cmd inputs)
+      (.call)))
+
+(defn run-command [pair dir]
+  (if (vector? pair)
+    (let [[ele inputs] pair
+          cmd (if (-> ele :modifiers :static)
+                (ele)
+                (ele (Git. (repository/repository dir))))]
+
+      ((-> run-base
+           wrap-result
+           wrap-help) cmd inputs))
+    pair))
+
+(defn git
+  ([] (git :help))
+  ([dir? & args]
+   (let [all-commands (commands/git-all-commands)
+         curr (System/getProperty "user.dir")
+         [dir [c & cs :as args]] (cond (keyword? dir?)
+                                       [(or *dir* curr)
+                                        (cons dir? args)]
+                                       
+                                       :else
+                                       [(do (alter-var-root #'*dir* (fn [x] dir?))
+                                            dir?)
+                                        args])]
+     (println "ARGS:" dir args)
+     (cond (= :help c)
+           (git-help all-commands)
+
+           (= :cd c)
+           (alter-var-root #'*dir* (fn [x] (first cs)))
+
+           (= :pwd c)
+           (or *dir* curr)
+
+           :else
+           (-> (commands/command all-commands args)
+               (run-command dir))))))

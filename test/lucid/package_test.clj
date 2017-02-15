@@ -62,4 +62,6 @@
 
 (comment
   (lucid.unit/import)
+
+  (deploy-project (project/project "../oren/project.clj"))
   )

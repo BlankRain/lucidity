@@ -1,4 +1,4 @@
-(defproject im.chit/lucid "1.2.10"
+(defproject im.chit/lucid "1.3.2"
   :description "tools for code clarity"
   :url "https://www.github.com/zcaudate/lucidity"
   :license {:name "The MIT License"
@@ -7,23 +7,24 @@
   :dependencies [[org.clojure/clojure "1.8.0"]
                  [org.clojure/core.match      "0.2.2"]
                  
-                 [im.chit/hara.common.checks  "2.4.8"]
-                 [im.chit/hara.data.diff      "2.4.8"]
-                 [im.chit/hara.data.nested    "2.4.8"]
-                 [im.chit/hara.event          "2.4.8"]
-                 [im.chit/hara.io.archive     "2.4.8"]
-                 [im.chit/hara.io.classloader "2.4.8"]
-                 [im.chit/hara.io.classpath   "2.4.8"]
-                 [im.chit/hara.io.encode      "2.4.8"]
-                 [im.chit/hara.io.file        "2.4.8"]
-                 [im.chit/hara.io.project     "2.4.8"]
-                 [im.chit/hara.io.watch       "2.4.8"]
-                 [im.chit/hara.namespace      "2.4.8"]
-                 [im.chit/hara.object         "2.4.8"]
-                 [im.chit/hara.reflect        "2.4.8"]
-                 [im.chit/hara.security       "2.4.8"]
-                 [im.chit/hara.string         "2.4.8"]
-                 [im.chit/hara.test           "2.4.8"]
+                 [im.chit/hara.common.checks  "2.5.1"]
+                 [im.chit/hara.data.diff      "2.5.1"]
+                 [im.chit/hara.data.nested    "2.5.1"]
+                 [im.chit/hara.event          "2.5.1"]
+                 [im.chit/hara.io.archive     "2.5.1"]
+                 [im.chit/hara.io.classloader "2.5.1"]
+                 [im.chit/hara.io.classpath   "2.5.1"]
+                 [im.chit/hara.io.encode      "2.5.1"]
+                 [im.chit/hara.io.file        "2.5.1"]
+                 [im.chit/hara.io.project     "2.5.1"]
+                 [im.chit/hara.io.watch       "2.5.1"]
+                 [im.chit/hara.namespace      "2.5.1"]
+                 [im.chit/hara.object         "2.5.1"]
+                 [im.chit/hara.reflect        "2.5.1"]
+                 [im.chit/hara.security       "2.5.1"]
+                 [im.chit/hara.string.case    "2.5.1"]
+                 [im.chit/hara.string.prose   "2.5.1"]
+                 [im.chit/hara.test           "2.5.1"]
                  
                  [org.eclipse.aether/aether-api "1.1.0"]
                  [org.eclipse.aether/aether-spi "1.1.0"]
@@ -34,17 +35,18 @@
                  [org.eclipse.aether/aether-transport-http "1.1.0"]
                  [org.eclipse.aether/aether-transport-file "1.1.0"]
                  [org.eclipse.aether/aether-transport-classpath "1.1.0"]
-                 [org.apache.maven/maven-aether-provider "3.1.0"]
+                 [org.apache.maven/maven-aether-provider "3.3.9"]
 
-                 [org.ow2.asm/asm "5.1"]
-                 [org.bouncycastle/bcprov-jdk15on "1.55"]
-                 [org.bouncycastle/bcpg-jdk15on "1.55"]
-                 [org.bouncycastle/bcpkix-jdk15on "1.55"]
+                 [org.ow2.asm/asm "5.2"]
+                 [org.bouncycastle/bcprov-jdk15on "1.56"]
+                 [org.bouncycastle/bcpg-jdk15on "1.56"]
                  [version-clj/version-clj "0.1.2"]
-                 [rewrite-clj/rewrite-clj "0.5.2"]
-                 [markdown-clj/markdown-clj "0.9.89"]
+                 [rewrite-clj/rewrite-clj "0.6.0"]
+                 [markdown-clj/markdown-clj "0.9.94"]
                  [hiccup/hiccup "1.0.5"]
-                 [stencil/stencil "0.5.0"]]
+                 [stencil/stencil "0.5.0"]
+                 [org.eclipse.jgit "4.5.1-sgk"]
+                 [com.github.dblock/oshi-core "3.3"]]
   
   :publish {:theme  "stark"
             
@@ -72,6 +74,10 @@
                     {:input "test/documentation/lucid_distribute.clj"
                      :title "distribute"
                      :subtitle "code repackaging and distribution"}
+                    "lucid-git"
+                    {:input "test/documentation/lucid_git.clj"
+                     :title "git"
+                     :subtitle "wrapper for org.eclipse.jgit"}
                     "lucid-mind"
                     {:input "test/documentation/lucid_mind.clj"
                      :title "mind"
@@ -88,15 +94,18 @@
                     {:input "test/documentation/lucid_query.clj"
                      :title "query"
                      :subtitle "intuitive search for code"}
+                    "lucid-system"
+                    {:input "test/documentation/lucid_system.clj"
+                     :title "system"
+                     :subtitle "system information and process monitoring"}
                     "lucid-unit"
                     {:input "test/documentation/lucid_unit.clj"
                      :title "unit"
                      :subtitle "metadata through unit tests"}}}
   
-  :profiles {:dev {:dependencies [[compojure "1.4.0"]
-                                  [ring "1.4.0"]
-                                  [clj-http "2.1.0"]
-                                  [org.eclipse.jgit "4.0.1.201506240215-r"]]}}
+  :profiles {:dev {:dependencies [[compojure "1.5.2"]
+                                  [ring "1.5.1"]
+                                  [clj-http "3.4.1"]]}}
   
   :distribute {:jars  :dependencies
                :files [{:type :clojure

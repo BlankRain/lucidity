@@ -25,8 +25,7 @@
                                                  BcPGPContentSignerBuilder
                                                  BcPGPContentVerifierBuilderProvider)
            (org.bouncycastle.openpgp.bc BcPGPPublicKeyRingCollection
-                                        BcPGPSecretKeyRingCollection)
-           (org.bouncycastle.cms CMSSignedData)))
+                                        BcPGPSecretKeyRingCollection)))
 
 (defonce +bouncy-castle+ 
   (Security/addProvider (BouncyCastleProvider.)))
