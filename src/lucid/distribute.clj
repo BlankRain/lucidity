@@ -15,8 +15,7 @@
 (defn install
   "installs all subpackages according to `:distribute` key
  
-   (install (project/project))
-   "
+   (install (project/project))"
   {:added "1.2"}
   ([] (install (project/project)))
   ([project]
@@ -39,20 +38,21 @@
 (defn deploy
   "installs all subpackages according to `:distribute` key
  
-   (deploy (project/project))
-   "
+   (deploy (project/project))"
   {:added "1.2"}
   ([] (deploy (project/project)))
   ([project]
    (deploy project (manifest/manifest project)))
   ([project manifest]
+   (deploy project manifest {}))
+  ([project manifest opts]
    (let [packages (split/split project manifest)]
      (doseq [id packages]
        (println "\nDeploying" id)
        (try (-> (common/interim-path project)
                 (str "/branches/" id "/project.clj")
                 (project/project)
-                (package/deploy-project))
+                (package/deploy-project opts))
             (catch Throwable t
               (println t)
               (println "FAILED for " id))))
@@ -61,4 +61,17 @@
      (-> (common/interim-path project)
          (str "/root/project.clj")
          (project/project)
-         (package/deploy-project)))))
+         (package/deploy-project opts)))))
+
+(defn deploy-current
+  "installs all in the current project
+ 
+   (deploy-current {:authentication {:username \"hello\"
+                                    :password \"world\"}})"
+  {:added "1.2"}
+  ([]
+   (deploy-current {}))
+  ([opts]
+   (let [project  (project/project)
+         manifest (manifest/manifest project)]
+     (deploy project manifest opts))))

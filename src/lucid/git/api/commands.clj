@@ -13,8 +13,11 @@
 (defn may-coerce [^Class param arg]
   (let [^Class targ (type arg)
         {:keys [types from-map from-string from-vector]} (object/meta-write param)]
-    (cond (util/param-arg-match param targ) arg
+    (cond (.isArray targ)
+          (object/from-data arg param)
 
+          (util/param-arg-match param targ) arg
+          
           from-map (from-map arg)
           from-string (from-string arg)
           from-vector (from-vector arg)

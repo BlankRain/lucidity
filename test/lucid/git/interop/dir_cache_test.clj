@@ -1,9 +1,9 @@
 (ns lucid.git.interop.dir-cache-test
+  (:use hara.test)
   (:require [lucid.git.interop.helpers :refer :all]
             [lucid.git.interop :as interop]
             [hara.object :as object]
-            [clojure.java.io :as io]
-            [hara.test :refer :all]))
+            [clojure.java.io :as io]))
 
 (fact "testing dir-cache and dir-cache-entry"
 

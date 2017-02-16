@@ -1,4 +1,4 @@
-(defproject im.chit/lucid "1.3.2"
+(defproject im.chit/lucid "1.3.4"
   :description "tools for code clarity"
   :url "https://www.github.com/zcaudate/lucidity"
   :license {:name "The MIT License"
@@ -111,7 +111,7 @@
                :files [{:type :clojure
                         :levels 2
                         :path "src"
-                        :standalone #{"aether" "distribute" "mind" "package" "publish" "query" "unit"}}
+                        :standalone #{"aether" "distribute" "git" "mind" "package" "publish" "query" "system" "unit"}}
                        {:subpackage "resources"
                         :path "resources"
                         :distribute {"publish" #{"theme"}}}]} 

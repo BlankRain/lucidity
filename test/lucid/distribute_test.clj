@@ -13,7 +13,12 @@
 
   (deploy (project/project)))
 
-(comment
+^{:refer lucid.distribute/deploy-current :added "1.2"}
+(comment "installs all in the current project"
 
+  (deploy-current {:authentication {:username "hello"
+                                    :password "world"}}))
+
+(comment
   (deploy (project/project "../hara/project.clj"))
   (deploy (project/project)))

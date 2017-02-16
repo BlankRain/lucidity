@@ -74,20 +74,23 @@
    (add-authentication {:id \"clojars\"}
                       {})"
   {:added "1.2"}
-  [{:keys [id] :as repository} {:keys [ring-file cred-file]
-       :or {cred-file user/LEIN-CREDENTIALS-GPG
-            ring-file user/GNUPG-SECRET}}]
-  (let [auth-map (read-string (privacy/decrypt cred-file ring-file))]
-    (->> auth-map
-         (filter (fn [[k _]]
-                   (cond (string? k)
-                         (= id k)
-                         
-                         (instance? java.util.regex.Pattern k)
-                         (re-find k id))))
-         first
-         second
-         (assoc repository :authentication))))
+  [{:keys [id] :as repository} 
+   {:keys [manual ring-file cred-file]
+    :or {cred-file user/LEIN-CREDENTIALS-GPG
+         ring-file user/GNUPG-SECRET}}]
+  (if manual
+    (assoc repository :authentication manual)
+    (let [auth-map (read-string (privacy/decrypt cred-file ring-file))]
+      (->> auth-map
+           (filter (fn [[k _]]
+                     (cond (string? k)
+                           (= id k)
+                           
+                           (instance? java.util.regex.Pattern k)
+                           (re-find k id))))
+           first
+           second
+           (assoc repository :authentication)))))
 
 (defn create-digest
   "creates a digest given a file and a digest type
@@ -129,14 +132,14 @@
   {:added "1.2"}
   ([project]
    (deploy-project project {}))
-  ([project {:keys [id]
+  ([project {:keys [id authentication]
              :or {id "clojars"}}]
    (let [[jar-file pom-file] (compile-project project)
          aether   (aether/aether)
          repository (->> (:repositories aether)
                          (filter #(-> % :id (= id)))
                          first)
-         repository (add-authentication repository {})
+         repository (add-authentication repository {:manual authentication})
          artifacts  [{:file jar-file
                       :extension "jar"}
                      {:file pom-file
