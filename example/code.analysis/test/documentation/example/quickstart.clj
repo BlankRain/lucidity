@@ -1,2 +1,2 @@
 (ns documentation.example.quickstart
-  (:use midje.sweet))
+  (:use hara.test))

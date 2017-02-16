@@ -1,5 +1,5 @@
 (ns lucid.git.api.repository-test
-  (:use midje.sweet)
+  (:use hara.test)
   (:require [clojure.java.io :as io]
             [lucid.git.api.repository :refer :all])
   (:import org.eclipse.jgit.api.Git))

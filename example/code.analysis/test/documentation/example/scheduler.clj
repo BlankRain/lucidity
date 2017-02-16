@@ -1,2 +1,2 @@
 (ns documentation.example.scheduler
-  (:use midje.sweet))
+  (:use hara.test))

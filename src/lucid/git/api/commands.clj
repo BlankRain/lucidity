@@ -6,6 +6,7 @@
             [hara.string.case :as case]
             [clojure.string :as string]
             [hara.object :as object]
+            [hara.class.enum :as enum]
             [lucid.git.interop :as interop])
   (:import org.eclipse.jgit.api.Git))
 
@@ -14,9 +15,9 @@
         {:keys [types from-map from-string from-vector]} (object/meta-write param)]
     (cond (util/param-arg-match param targ) arg
 
-          from-map (from-map arg param)
-          from-string (from-string arg param)
-          from-vector (from-vector arg param)
+          from-map (from-map arg)
+          from-string (from-string arg)
+          from-vector (from-vector arg)
 
           :else
           (throw (Exception. (str "Cannot convert value " arg
@@ -64,7 +65,7 @@
                        (inheritance/ancestor-list)
                        set
                        (get Enum))
-                   (->> param object/enum-values (map object/to-data) set)
+                   (->> param enum/enum-values (map object/to-data) set)
 
                    to-map java.util.Map
                    to-string String

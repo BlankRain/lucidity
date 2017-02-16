@@ -1,2 +1,2 @@
 (ns documentation.example.watch
-  (:use midje.sweet))
+  (:use hara.test))

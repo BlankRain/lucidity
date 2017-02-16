@@ -31,7 +31,7 @@ A very useful function `add-5` has been defined:"
 (comment
   (ns fami.test-operations
     (:require [fami.operations :refer :all]
-              [midje.sweet :refer :all]))
+              [hara.test :refer :all]))
 
   (fact "add-5 should increment any list of numbers by 5"
     (add-5 5)  => 10
@@ -75,7 +75,7 @@ A very useful function `add-5` has been defined:"
  (comment
  (ns fami.test-operations
    (:require [fami.operations :refer :all]
-             [midje.sweet :refer :all]))
+             [hara.test :refer :all]))
 
  (fact "add-5 should increment only one input by 5"
    (add-5 5) => 10

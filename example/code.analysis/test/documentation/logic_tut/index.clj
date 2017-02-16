@@ -1,5 +1,5 @@
 (ns documentation.logic-tut.index
-  (:use midje.sweet))
+  (:use hara.test))
 
 [[:chapter {:title "Introduction"}]]
 

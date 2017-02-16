@@ -1,5 +1,5 @@
 (ns lucid.git.interop.status-test
-  (:use midje.sweet)
+  (:use hara.test)
   (:require [lucid.git.interop :as interop]
             [hara.object :as object]
             [clojure.java.io :as io]
@@ -34,7 +34,7 @@
   (-> (git-status-call tempdir)
       (object/to-data)
       (display))
-  =>  {:untracked ["hello.txt"]}
+  =>  {:untracked ["hello.txt"] :clean? false}
 
   (spit (str path "/world.txt") "world")
   (-> (git-status-call tempdir)
@@ -55,7 +55,9 @@
   (-> (git-status-call tempdir)
       (object/to-data)
       (display))
-  => {:added ["hello.txt"], :uncommitted-changes ["hello.txt"]}
+  => {:added ["hello.txt"],
+      :uncommitted-changes ["hello.txt"]
+      :clean? false}
 
   (delete-recursively tempdir))
 

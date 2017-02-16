@@ -1,5 +1,5 @@
 (ns documentation.on-lisp.book
-  (:use midje.sweet))
+  (:use hara.test))
 
 [[:chapter {:title "The Extensible language"}]]
 

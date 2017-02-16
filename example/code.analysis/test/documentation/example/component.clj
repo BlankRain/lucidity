@@ -1,2 +1,2 @@
 (ns documentation.example.component
-  (:use midje.sweet))
+  (:use hara.test))

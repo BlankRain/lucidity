@@ -1,5 +1,5 @@
 (ns documentation.on-lisp.ch1-the-extensible-language
-  (:use midje.sweet))
+  (:use hara.test))
 
 "Not long ago, if you asked what Lisp was for, many people would have answered \"for artificial intelligence.\"
 In fact, the association between Lisp and AI is just an accident of history. Lisp was invented by John McCarthy,

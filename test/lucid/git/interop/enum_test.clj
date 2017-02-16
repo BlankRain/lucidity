@@ -1,9 +1,10 @@
 (ns lucid.git.interop.enum-test
   (:require [hara.object :as object]
-            [midje.sweet :refer :all]))
+            [hara.class.enum :as enum]
+            [hara.test :refer :all]))
 
 (fact "enum-values"
-  (->> (object/enum-values org.eclipse.jgit.api.ResetCommand$ResetType)
+  (->> (enum/enum-values org.eclipse.jgit.api.ResetCommand$ResetType)
        (map str))
   => (just ["SOFT" "MIXED" "HARD" "MERGE" "KEEP"] :in-any-order))
 

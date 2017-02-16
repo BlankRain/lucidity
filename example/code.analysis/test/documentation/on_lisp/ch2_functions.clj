@@ -1,5 +1,5 @@
 (ns documentation.on-lisp.ch2-functions
-  (:use midje.sweet))
+  (:use hara.test))
 
 "Functions are the building-blocks of Lisp programs. They are also the building-blocks of Lisp. In most
 languages the + operator is something quite different from user-defined functions. But Lisp has a single model,

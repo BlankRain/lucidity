@@ -2,7 +2,7 @@
   (:require [lucid.git.api.commands :refer :all]
             [hara.object :as object]
             [lucid.git.interop :as interop]
-            [midje.sweet :refer :all]
+            [hara.test :refer :all]
             [hara.reflect :as reflect]
             [clojure.java.io :as io])
   (:import org.eclipse.jgit.api.Git))

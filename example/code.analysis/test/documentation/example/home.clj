@@ -1,5 +1,5 @@
 (ns documentation.example.home
-  (:use midje.sweet))
+  (:use hara.test))
 
 [[:chapter {:title "Beating the Averages"}]]
 

@@ -1,7 +1,7 @@
 (ns lucid.git.interop.object-id-test
   (:require [lucid.git.interop :as interop]
             [hara.object :as object]
-            [midje.sweet :refer :all])
+            [hara.test :refer :all])
   (:import [org.eclipse.jgit.lib AnyObjectId ObjectId]))
 
 (def id "794766b075c502112806f6731dc172dda37e0333")
