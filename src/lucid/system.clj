@@ -1,5 +1,7 @@
 (ns lucid.system
-  (:require [lucid.system.types :as types]
+  (:require [lucid.system
+             [jvm :as jvm]
+             [types :as types]]
             [hara.object :as object])
   (:import oshi.software.os.OperatingSystem$ProcessSort))
 
@@ -271,7 +273,9 @@
 (defn list-processes
   "returns information about all running processes on the os
  
-   ;; #{:name :oldest :memory :pid :newest :cpu :parentpid}
+   ;; ordering options:
+   #{:name :oldest :memory :pid :newest :cpu :parentpid}
+ 
    (list-processes 2 :name)
    ;; => (#process{:parent-process-id 1,
    ;;              :path \"/System/Library/Frameworks/Accounts.framework/Versions/A/Support/accountsd\",
@@ -285,8 +289,6 @@
    ;;              :bytes-read 61440,
    ;;              :up-time 31522999,
    ;;              :process-id 1360})
-   
-   
    "
   {:added "0.1"}
   ([] (list-processes 50 :cpu))
@@ -300,3 +302,32 @@
          (.getProcesses limit (process-sort sort-key))
          seq
          (to-data)))))
+
+(defn jvm
+  "Access to all `java.lang.management.ManagementFactory` MXBean methods
+ 
+   (jvm)
+   => [:class-loading :compilation :gc :memory :memory-manager :memory-pool :os :runtime :thread]
+ 
+   (jvm :gc)
+   => [{:collection-count 33, :collection-time 1089}
+       {:collection-count 4, :collection-time 585}]
+ 
+   (jvm :all)
+   ;; => <All MX Results> 
+   "
+  {:added "0.1"}
+  ([]
+   (sort (keys jvm/jvm-map)))
+  ([k]
+   (cond (= k :all)
+         (reduce-kv (fn [out k f]
+                      (assoc out k (object/to-data (f))))
+                    {}
+                    jvm/jvm-map)
+
+         (jvm/jvm-map k)
+         (object/to-data ((jvm/jvm-map k)))
+
+         :else
+         (jvm))))

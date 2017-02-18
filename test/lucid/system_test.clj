@@ -176,7 +176,9 @@
 ^{:refer lucid.system/list-processes :added "0.1"}
 (fact "returns information about all running processes on the os"
 
-  ;; #{:name :oldest :memory :pid :newest :cpu :parentpid}
+  ;; ordering options:
+  #{:name :oldest :memory :pid :newest :cpu :parentpid}
+
   (list-processes 2 :name)
   ;; => (#process{:parent-process-id 1,
   ;;              :path "/System/Library/Frameworks/Accounts.framework/Versions/A/Support/accountsd",
@@ -192,7 +194,21 @@
   ;;              :process-id 1360})
   )
 
+^{:refer lucid.system/jvm :added "0.1"}
+(comment "Access to all `java.lang.management.ManagementFactory` MXBean methods"
+
+  (jvm)
+  => [:class-loading :compilation :gc :memory :memory-manager :memory-pool :os :runtime :thread]
+
+  (jvm :gc)
+  => [{:collection-count 33, :collection-time 1089}
+      {:collection-count 4, :collection-time 585}]
+
+  (jvm :all)
+  ;; => <All MX Results> 
+  )
+
 (comment
-  (./import)  
+  (./import)
   )
 
