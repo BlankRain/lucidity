@@ -20,5 +20,7 @@
                                     :password "world"}}))
 
 (comment
+  (deploy-current)
+  (./import)
   (deploy (project/project "../hara/project.clj"))
   (deploy (project/project)))
