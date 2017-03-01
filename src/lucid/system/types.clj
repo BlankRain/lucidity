@@ -179,9 +179,7 @@
           oshi.software.os.unix.freebsd.FreeBsdOperatingSystem
           {:tag "os" :read :all}
           oshi.software.os.unix.freebsd.FreeBsdOSVersionInfoEx
-          {:tag "info" :read :all}
-          oshi.software.os.unix.freebsd.FreeBsdProcess
-          {:tag "process" :read :all})))
+          {:tag "info" :read :all})))
 
 (when (= *platform* "LINUX")
   (eval '(object/map-like
@@ -190,20 +188,14 @@
           oshi.software.os.linux.LinuxOperatingSystem
           {:tag "os" :read :all}
           oshi.software.os.linux.LinuxOSVersionInfoEx
-          {:tag "info" :read :all}
-          oshi.software.os.linux.LinuxProcess
-          {:tag "process" :read :all})))
+          {:tag "info" :read :all})))
 
 (when (= *platform* "MACOSX")
   (eval '(object/map-like
           oshi.software.os.mac.MacFileSystem
           {:tag "fs" :read :all}
           oshi.software.os.mac.MacOperatingSystem
-          {:tag "os" :read :all}
-          oshi.software.os.mac.MacOSVersionInfoEx
-          {:tag "info" :read :all}
-          oshi.software.os.mac.MacProcess
-          {:tag "process" :read :all})))
+          {:tag "os" :read :all})))
 
 (when (= *platform* "SOLARIS")
   (eval '(object/map-like
@@ -212,9 +204,7 @@
           oshi.software.os.unix.solaris.SolarisOperatingSystem
           {:tag "os" :read :all}
           oshi.software.os.unix.solaris.SolarisOSVersionInfoEx
-          {:tag "info" :read :all}
-          oshi.software.os.unix.solaris.SolarisProcess
-          {:tag "process" :read :all})))
+          {:tag "info" :read :all})))
 
 (when (= *platform* "WINDOWS")
   (eval '(object/map-like
@@ -223,8 +213,6 @@
           oshi.software.os.windows.WindowsOperatingSystem
           {:tag "os" :read :all}
           oshi.software.os.windows.WindowsOSVersionInfoEx
-          {:tag "info" :read :all}
-          oshi.software.os.windows.WindowsProcess
-          {:tag "process" :read :all})))
+          {:tag "info" :read :all})))
 
 

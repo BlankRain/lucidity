@@ -3,7 +3,7 @@
             [hara.common.string :as string]
             [clojure.string :refer [join]]
             [lucid.graph.interop :as interop])
-  (:import  [org.lucid.graph.draw.implementations MultiGraph]))
+  (:import  [org.graphstream.graph.implementations MultiGraph]))
 
 (defonce +current-viewer+ nil)
 (defonce +current-graph+ nil)
@@ -34,7 +34,7 @@
    (let [graph  (MultiGraph. title)]
      (alter-var-root #'+current-graph+ (constantly graph))
      (->> (select-keys config [:dom :style :attributes :title])
-          (object/access graph)))))
+          (object/get graph)))))
 
 (defn element
   "accesses the element within a graph
@@ -58,7 +58,7 @@
   "displays the graph in a seperate window"
   {:added "0.1"}
   [graph]
-  (let [attrs  (object/access graph :attributes)
+  (let [attrs  (object/get graph :attributes)
         viewer (doto (.display graph)
                  (.setCloseFramePolicy org.graphstream.ui.view.Viewer$CloseFramePolicy/CLOSE_VIEWER))
         _      (if (:gs.disable-auto-layout attrs)

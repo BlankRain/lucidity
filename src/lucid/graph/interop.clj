@@ -30,35 +30,36 @@
              element
              (dissoc attrs :ui.stylesheet :ui.title)))
 
-(object/extend-maplike
+(object/map-like
 
- org.lucid.graph.draw.implementations.AbstractNode
+ org.graphstream.graph.implementations.AbstractNode
  {:tag "node"
-  :default false
-  :getters {:id #(-> % .getId keyword)
-            :attributes get-attributes}
-  :setters {:attributes set-attributes}}
+  :read  {:methods {:id #(-> % .getId keyword)
+                    :attributes get-attributes}}
+  :write {:empty   (fn [_] (throw (Exception. "Not Implemented")))
+          :methods {:attributes set-attributes}}}
 
- org.lucid.graph.draw.implementations.AbstractEdge
+ org.graphstream.graph.implementations.AbstractEdge
  {:tag "edge"
-  :default false
-  :getters {:id #(vector (-> % .getSourceNode str keyword)
-                         (-> % .getTargetNode str keyword))
-            :attributes get-attributes}
-  :setters {:attributes set-attributes}}
+  :read {:methods {:id #(vector (-> % .getSourceNode str keyword)
+                                (-> % .getTargetNode str keyword))
+                   :attributes get-attributes}}
+  :write {:empty   (fn [_] (throw (Exception. "Not Implemented")))
+          :methods {:attributes set-attributes}}}
 
- org.lucid.graph.draw.implementations.AbstractGraph
+
+ org.graphstream.graph.implementations.AbstractGraph
  {:tag "graph"
   :include [:node-set :edge-set :strict? :index :step]
-  :getters {:attributes get-attributes
-            :dom dom/get-dom
-            :style css/get-stylesheet
-            :title #(.getAttribute % "ui.title")}
-  :setters {:attributes set-attributes
-            :dom dom/set-dom
-            :style css/set-stylesheet
-            :title #(.setAttribute %1 "ui.title" (util/attribute-array %2))}
-  :hide    [:node-set :edge-set :strict? :index :step]}
+  :read {:methods {:attributes get-attributes
+                   :dom dom/get-dom
+                   :style css/get-stylesheet
+                   :title #(.getAttribute % "ui.title")}}
+  :write {:empty   (fn [_] (throw (Exception. "Not Implemented")))
+          :methods {:attributes set-attributes
+                    :dom dom/set-dom
+                    :style css/set-stylesheet
+                    :title #(.setAttribute %1 "ui.title" (util/attribute-array %2))}}}
 
  org.graphstream.ui.view.Viewer
  {:tag "ui.viewer"
@@ -76,22 +77,22 @@
 
  org.graphstream.ui.geom.Point2
  {:tag "point"
-  :getters {:x #(.x %)
-            :y #(.y %)}}
+  :read {:methods {:x #(.x %)
+                   :y #(.y %)}}}
 
  org.graphstream.ui.geom.Point3
  {:tag "point"
-  :getters {:x #(.x %)
-            :y #(.y %)
-            :z #(.z %)}}
+  :read {:methods {:x #(.x %)
+                   :y #(.y %)
+                   :z #(.z %)}}}
 
  org.graphstream.ui.geom.Vector2
  {:tag "vector"
-  :getters {:x #(.x %)
-            :y #(.y %)}}
+  :read {:methods {:x #(.x %)
+                   :y #(.y %)}}}
 
  org.graphstream.ui.geom.Vector3
  {:tag "vector"
-  :getters {:x #(.x %)
-            :y #(.y %)
-            :z #(.z %)}})
+  :read {:methods {:x #(.x %)
+                   :y #(.y %)
+                   :z #(.z %)}}})

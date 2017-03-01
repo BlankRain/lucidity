@@ -50,7 +50,9 @@
                  [com.github.dblock/oshi-core "3.4.0"]
                  [garden "1.3.2"]
                  [net.sourceforge.cssparser/cssparser "0.9.22"]
-                 [org.graphstream/gs-ui "1.3"]
+                 [org.graphstream/gs-ui "1.3"
+                    :exclusions [[bouncycastle/bcprov-jdk14]
+                                 [bouncycastle/bcmail-jdk14]]]
                  [w01fe/sniper "0.1.0"]
                  [seesaw "1.4.5"]]
   
