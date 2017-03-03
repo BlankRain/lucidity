@@ -1,7 +1,10 @@
 (ns lucid.graph.draw-test
   (:use hara.test)
   (:require [lucid.graph.draw :refer :all]
-            [hara.object :as object]))
+            [hara.object :as object])
+  (:import  [org.graphstream.graph.implementations MultiGraph]))
+
+
 
 ^{:refer lucid.graph.draw/graph :added "0.1"}
 (fact "creates a di-graph for visualization"
@@ -22,7 +25,6 @@
       :node-set [{:attributes {:label "C"}, :id :c}
                  {:attributes {:label "B"}, :id :b}
                  {:attributes {:label "A", :ui.class "top"}, :id :a}]})
-
 
 ^{:refer lucid.graph.draw/element :added "0.1"}
 (fact "accesses the element within a graph"

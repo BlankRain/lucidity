@@ -34,7 +34,7 @@
    (let [graph  (MultiGraph. title)]
      (alter-var-root #'+current-graph+ (constantly graph))
      (->> (select-keys config [:dom :style :attributes :title])
-          (object/get graph)))))
+          (object/set graph)))))
 
 (defn element
   "accesses the element within a graph

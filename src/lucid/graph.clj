@@ -15,22 +15,23 @@
 
 (defrecord Browser []
   clojure.lang.IFn
-  (invoke [obj]     (object/access obj))
-  (invoke [obj k]   (object/access obj k))
-  (invoke [obj k v] (object/access obj k v)))
+  (invoke [obj]     {:read  (keys (object/meta-read obj))
+                     :write (keys (object/meta-write obj))})
+  (invoke [obj k]   (object/get obj k))
+  (invoke [obj k v] (object/set obj k v)))
 
 (defmethod print-method Browser
   [v w]
   (.write w (str (into {} v))))
 
-(object/extend-maplike
+(object/map-like
 
  Browser
  {:tag "browser"
-  :default false
-  :proxy   {:graph [:attributes :style :title]}
-  :getters {:dom (fn [b] (-> b :dom deref))}
-  :setters {:dom (fn [b dom] (reset! (:dom b) dom) b)}})
+  :proxy {:graph [:attributes :style :title]}
+  :read  {:methods {:dom (fn [b] (-> b :dom deref))}}
+  :write {:empty (fn [] (throw (Exception. "Not implemented")))
+          :methods {:dom (fn [b dom] (reset! (:dom b) dom) b)}}})
 
 (defn browse
   "returns a browser object for viewing and updating a graph. The browser includes 

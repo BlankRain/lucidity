@@ -30,6 +30,7 @@
              element
              (dissoc attrs :ui.stylesheet :ui.title)))
 
+
 (object/map-like
 
  org.graphstream.graph.implementations.AbstractNode
@@ -37,8 +38,9 @@
   :read  {:methods {:id #(-> % .getId keyword)
                     :attributes get-attributes}}
   :write {:empty   (fn [_] (throw (Exception. "Not Implemented")))
-          :methods {:attributes set-attributes}}}
+          :methods {:attributes set-attributes}}})
 
+(object/map-like
  org.graphstream.graph.implementations.AbstractEdge
  {:tag "edge"
   :read {:methods {:id #(vector (-> % .getSourceNode str keyword)
@@ -46,7 +48,6 @@
                    :attributes get-attributes}}
   :write {:empty   (fn [_] (throw (Exception. "Not Implemented")))
           :methods {:attributes set-attributes}}}
-
 
  org.graphstream.graph.implementations.AbstractGraph
  {:tag "graph"
@@ -59,19 +60,28 @@
           :methods {:attributes set-attributes
                     :dom dom/set-dom
                     :style css/set-stylesheet
-                    :title #(.setAttribute %1 "ui.title" (util/attribute-array %2))}}}
+                    :title #(.setAttribute %1 "ui.title" (util/attribute-array %2))}}})
 
- org.graphstream.ui.view.Viewer
- {:tag "ui.viewer"
-  :exclude [:graphic-graph]}
+(macroexpand-1 '(object/map-like
+                org.graphstream.graph.implementations.AbstractGraph
+                {:tag "graph"
+                 :include [:node-set :edge-set :strict? :index :step]
+                 :read {:methods {:attributes get-attributes
+                                  :dom dom/get-dom
+                                  :style css/get-stylesheet
+                                  :title #(.getAttribute % "ui.title")}}
+                 :write {:empty   (fn [_] (throw (Exception. "Not Implemented")))
+                         :methods {:attributes set-attributes
+                                   :dom dom/set-dom
+                                   :style css/set-stylesheet
+                                   :title #(.setAttribute %1 "ui.title" (util/attribute-array %2))}}}))
+
+(object/map-like
 
  org.graphstream.ui.view.View
  {:tag "ui.view"
   :include [:x :y :camera]}
-
- org.graphstream.ui.view.Camera
- {:tag "camera"}
-
+ 
  org.graphstream.ui.swingViewer.util.GraphMetrics
  {:tag "metrics"}
 

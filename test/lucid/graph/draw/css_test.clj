@@ -22,22 +22,22 @@
   (parse "node {\n  shape: freeplane;\n}")
   => [[:node {:shape "freeplane"}]])
 
-(fact "emit/parse combination yields the same result" 
-  (let [forms [[:edge {:arrow-shape "arrow"
-               :arrow-size "10, 10"}]
-               [:node {:shape "freeplane"}]]]
-    (-> forms 
-        emit
-        parse)
-    => forms))
+(fact "emit/parse combination yields the same result"
+  
+  (def forms [[:edge {:arrow-shape "arrow"
+                      :arrow-size "10, 10"}]
+              [:node {:shape "freeplane"}]])
+  (-> forms 
+      emit
+      parse)
+  => forms)
 
 ^{:refer lucid.graph.draw.css/get-stylesheet :added "0.1"}
 (fact "accessor function for graph stylesheet property"
 
   (-> (graph/graph {:style [[:node {:color "red"}]]})
       (get-stylesheet))
-  => [[:node {:color "red"}]]
-  )
+  => [[:node {:color "red"}]])
 
 
 ^{:refer lucid.graph.draw.css/set-stylesheet :added "0.1"}
@@ -47,3 +47,18 @@
       (set-stylesheet [[:node {:color "red"}]])
       (get-stylesheet))
   => [[:node {:color "red"}]])
+
+(comment
+  (def browser
+    (lucid.graph/browse {:title "Simple"
+                         :dom {:nodes {:a {:label "A"}
+                                       :b {:label "B"}}
+                               :edges {[:a :b] {:label "a->b"}}}}))
+  
+  (browser :style [[:node {:text-alignment :under}]])
+  (browser :style [[:node {:fill-color :green
+                         :size "20px"
+                         :text-size "15px"
+                         :text-alignment :under}]
+                 [:edge {:text-size "15px"
+                         :stroke-mode "dashes"}]]))

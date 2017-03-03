@@ -53,8 +53,9 @@
                  [org.graphstream/gs-ui "1.3"
                     :exclusions [[bouncycastle/bcprov-jdk14]
                                  [bouncycastle/bcmail-jdk14]]]
-                 [w01fe/sniper "0.1.0"]
-                 [seesaw "1.4.5"]]
+                 ;[w01fe/sniper "0.1.0"]
+                 ;[seesaw "1.4.5"]
+                 ]
   
   :publish {:theme  "stark"
             
