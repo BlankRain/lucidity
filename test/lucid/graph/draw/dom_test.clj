@@ -12,7 +12,7 @@
 (defn reset-graph []
   (graph/graph {:dom {:nodes NODES
                       :edges {[:a :b] {:label "a->b"}}}}))
-  
+
 ^{:refer lucid.graph.draw.dom/get-dom :added "0.1"}
 (fact "Gets the nodes and edges of the graph"
   (get-dom (reset-graph))
