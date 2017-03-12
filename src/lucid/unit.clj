@@ -7,11 +7,14 @@
             [lucid.query :as query]
             [hara.io
              [file :as fs]
-             [project :as project]]
+             [project :as project]
+             [watch :as watch]]
             [clojure.string :as string]
             [clojure.set :as set]
             [rewrite-clj.zip :as source])
   (:refer-clojure :exclude [import]))
+
+(def ^:dynamic *watchers* {})
 
 (defn import
   "imports unit tests as docstrings
@@ -143,11 +146,51 @@
   "arranges tests so that vars are in correct order
    
    ;; arranges tests for current namespace
-   (re-order?)
+   (arrange)
    
    ;; arranges tests for specific namespace
-   (re-order? 'lucid.unit)"
+   (arrange 'lucid.unit)"
   {:added "1.2"}
   ([] (arrange *ns*))
   ([ns] (arrange ns (project/project)))
   ([ns project] (scaffold/arrange ns (project/file-lookup project) project)))
+
+(defn unwatch
+  "removes the automatic watching and importing of tests
+ 
+   (unwatch)"
+  {:added "1.2"}
+  ([] (unwatch (project/project)))
+  ([{:keys [root] :as project}]
+   (when-let [watcher (get *watchers* root)]
+     (alter-var-root #'*watchers* dissoc root)
+     (watch/stop-watcher watcher))))
+
+(defn watch
+  "automatic imports tests when files change
+ 
+   (watch)"
+  {:added "1.2"}
+  ([] (watch {} (project/project)))
+  ([opts {:keys [root test-paths] :as project}]
+   (unwatch project)
+   (let [lookup    (project/file-lookup project)
+         ns-lookup (zipmap (vals lookup) (keys lookup))
+         watcher   (-> (watch/watcher test-paths
+                                      (fn [_ file]
+                                        (let [ns (ns-lookup (str file))]
+                                          (import ns lookup project)))
+                                      {:recursive true
+                                       :filter ["*.clj"]})
+                       (watch/start-watcher))]
+     (alter-var-root #'*watchers* assoc root watcher)
+     watcher)))
+
+(comment
+  (watch)
+  (unwatch)
+  (:test-paths (project/project))
+  (def lookup (project/file-lookup (project/project)))
+  @#'lucid.unit/lookup
+  
+  )

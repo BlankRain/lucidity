@@ -54,10 +54,11 @@
                  [org.graphstream/gs-ui "1.3"
                     :exclusions [[bouncycastle/bcprov-jdk14]
                                  [bouncycastle/bcmail-jdk14]]]
+                 [net.bytebuddy/byte-buddy "1.6.9"]
                  ;[w01fe/sniper "0.1.0"]
                  ;[seesaw "1.4.5"]
                  ]
-  
+                
   :publish {:theme  "stark"
             
             :template {:site   "lucid"
@@ -92,8 +93,8 @@
                     {:input "test/documentation/lucid_graph.clj"
                      :title "graph"
                      :subtitle "simple graph visualisations"}
-                    "lucid-insight"
-                    {:input "test/documentation/lucid_insight.clj"
+                    #_"lucid-insight"
+                    #_{:input "test/documentation/lucid_insight.clj"
                      :title "insight"
                      :subtitle "exploring functional connectivity"}
                     "lucid-mind"

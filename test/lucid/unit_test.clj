@@ -71,3 +71,23 @@
   
   ;; arranges tests for specific namespace
   (arrange 'lucid.unit))
+
+
+^{:refer lucid.unit/unwatch :added "1.2"}
+(comment "removes the automatic watching and importing of tests"
+
+  (unwatch))
+
+
+^{:refer lucid.unit/watch :added "1.2"}
+(comment "automatic imports tests when files change"
+
+  (watch))
+
+
+(comment
+
+  (import)
+
+  
+  )

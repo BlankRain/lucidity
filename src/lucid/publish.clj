@@ -1,7 +1,8 @@
 (ns lucid.publish
   (:require [hara.io
+             [file :as fs]
              [project :as project]
-             [file :as fs]]
+             [watch :as watch]]
             [hara.namespace.import :as ns]
             [lucid.publish
              [prepare :as prepare]
@@ -13,6 +14,8 @@
 
 (def ^:dynamic *output* "docs")
 
+(def ^:dynamic *watchers* {})
+
 (defn output-path
   "creates a path representing where the output files will go"
   {:added "1.2"}
@@ -22,7 +25,10 @@
     (fs/path (:root project) output-dir)))
 
 (defn copy-assets
-  "copies all theme assets into the output directory"
+  "copies all theme assets into the output directory
+ 
+   ;; copies theme using the `:copy` key into an output directory
+   (copy-assets)"
   {:added "1.2"}
   ([]
    (let [project (project/project)
@@ -44,7 +50,10 @@
              (fs/copy-single in out {:options [:replace-existing :copy-attributes]}))))))))
 
 (defn load-settings
-  "copies all theme assets into the output directory"
+  "copies all theme assets into the output directory
+ 
+   ;; {:email \"z@caudate.me\", :date \"06 October 2016\" ...}
+   (load-settings)"
   {:added "1.2"}
   ([] (load-settings {} (project/project)))
   ([opts project]
@@ -67,14 +76,15 @@
 
 (defn publish
   "publishes a document as an html
-   
-   (publish \"index\")
-   ;; publishes the `index` entry in `project.clj`
  
+   ;; publishes the `index` entry in `project.clj`
+   (publish \"index\")
+ 
+ 
+   ;; publishes `index` in a specific project with additional options
    (publish \"index\"
             {:refresh true :theme \"bolton\"}
-            (project/project <PATH>))
-   ;; publishes `index` in a specific project with additional options"
+            (project/project <PATH>))"
   {:added "1.2"}
   ([] (publish [*ns*] {} (project/project)))
   ([x] (cond (map? x)
@@ -102,13 +112,13 @@
 (defn publish-all
   "publishes all documents as html
  
+   ;; publishes all the entries in `:publish :files`
    (publish-all)
-   ;; publishes all the documents
  
+ 
+   ;; publishes all entries in a specific project
    (publish-all {:refresh true :theme \"bolton\"}
-                (project/project <PATH>))
-   ;; publishes a specific project with additional options
-   "
+                (project/project <PATH>))"
   {:added "1.2"}
   ([] (publish-all {} (project/project)))
   ([opts project]
@@ -118,3 +128,47 @@
          output   (output-path project)
          files (-> project :publish :files keys vec)]
      (publish files settings project))))
+
+(defn unwatch
+  "removes the automatic publishing of documentation files
+ 
+   (unwatch)"
+  {:added "1.2"}
+  ([] (unwatch (project/project)))
+  ([{:keys [root] :as project}]
+   (when-let [watchers (get *watchers* root)]
+     (alter-var-root #'*watchers* dissoc root)
+     (mapv watch/stop-watcher watchers))))
+
+(defn watch
+  "automatic  publishing of documentation files
+ 
+   (watch)"
+  {:added "1.2"}
+  ([]
+   (watch {} (project/project)))
+  ([opts {:keys [root] :as project}]
+   (unwatch project)
+   (let [files (->> project
+                    :publish
+                    :files
+                    (map (fn [[k v]]
+                           [(-> v :input io/file) k]))
+                    (group-by #(.getParentFile (first %))))
+         inputs   (map (fn [[dir vs]]
+                         (let [names (mapv #(.getName (first %)) vs)]
+                           [(str root "/" dir)
+                            names
+                            (zipmap names (map second vs))]))
+                       files)
+         watchers (mapv (fn [[dir files lookup]]
+                          (-> (watch/watcher [dir]
+                                             (fn [_ file]
+                                               (println "publish:" (lookup (.getName file)))
+                                               (publish [(lookup (.getName file))] {} project))
+                                             {:recursive false
+                                              :filter files})
+                              (watch/start-watcher)))
+                        inputs)]
+     (alter-var-root #'*watchers* assoc root watchers)
+     watchers)))

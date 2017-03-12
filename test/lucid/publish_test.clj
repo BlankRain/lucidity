@@ -44,6 +44,20 @@
                (project/project <PATH>)))
 
 
+^{:refer lucid.publish/unwatch :added "1.2"}
+(comment "removes the automatic publishing of documentation files"
+
+  (unwatch))
+
+
+^{:refer lucid.publish/watch :added "1.2"}
+(comment "automatic  publishing of documentation files"
+
+  (watch))
+
+
 (comment
   (publish "lucid-unit")
+
+  (watch)
   )
