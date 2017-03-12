@@ -4,7 +4,8 @@
 (defrecord EvaluationPattern [expression])
 
 (defn eval-pattern
-  "" [expression]
+  ""
+  [expression]
   (EvaluationPattern. expression))
 
 (defmethod match/emit-pattern EvaluationPattern

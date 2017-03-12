@@ -6,6 +6,9 @@
 (fact "pattern"
   ((pattern-matches ()) ())
   => '(())
+
+  ((pattern-matches []) ())
+  => ()
   
   ((pattern-matches '(^:% symbol? ^:? (+ 1 _ ^:? _))) '(+ (+ 1 2 3)))
   => '((^{:% true} symbol? ^{:? 0} (+ 1 _ ^{:? 1} _))))
@@ -13,5 +16,8 @@
 
 (set! *print-meta* false)
 
-(comment)
+(comment
+  (require 'lucid.distribute)
+  (lucid.distribute/deploy)
+  )
 

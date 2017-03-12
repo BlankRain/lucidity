@@ -6,6 +6,7 @@
   :aliases {"test" ["run" "-m" "hara.test" ":exit"]}
   :dependencies [[org.clojure/clojure             "1.8.0"]
                  [org.clojure/core.match          "0.2.2"]
+                 [org.clojure/tools.analyzer.jvm  "0.6.5"]
                  
                  [im.chit/hara.common.checks      "2.5.2"]
                  [im.chit/hara.concurrent.latch   "2.5.2"]
@@ -128,7 +129,9 @@
                :files [{:type :clojure
                         :levels 2
                         :path "src"
-                        :standalone #{"aether" "distribute" "git" "graph" "insight" "mind" "package" "publish" "query" "system" "unit"}}
+                        :standalone #{"aether" "distribute" "git" "graph" 
+                                      "mind" "package" "publish" 
+                                      "query" "system" "unit"}}
                        {:subpackage "resources"
                         :path "resources"
                         :distribute {"publish" #{"theme"}}}]} 
