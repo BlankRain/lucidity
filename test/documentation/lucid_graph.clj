@@ -3,7 +3,7 @@
 
 [[:chapter {:title "Introduction"}]]
 
-"`lucid.mind` gives greater understanding of objects by providing a macro language on top of [hara.reflect](http://docs.caudate.me/hara/hara-reflect.html) such that object introspection becomes very easy when working with the jvm. This library was originally [iroh](https://github.com/zcaudate/hara/iroh) and then [vinyasa.reflection](https://github.com/zcaudate/vinyasa)." 
+"`lucid.graph` builds on [graphstream](http://graphstream-project.org/) to allow for easy to use visualisations of data." 
 
 [[:section {:title "Installation"}]]
 
