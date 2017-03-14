@@ -1,25 +1,19 @@
 # lein-lucid
 
-A Leiningen plugin to do many wonderful things.
+metadata and documentation management tool
 
 ## Usage
 
-FIXME: Use this for user-level plugins:
-
-Put `[lein-lucid "0.1.0-SNAPSHOT"]` into the `:plugins` vector of your `:user`
-profile.
-
-FIXME: Use this for project-level plugins:
-
-Put `[lein-lucid "0.1.0-SNAPSHOT"]` into the `:plugins` vector of your project.clj.
-
-FIXME: and add an example usage that actually makes sense:
-
     $ lein lucid
+    
+   usage:
+     $ lein lucid (watch)  - default, watches project for changes and updates documentation accordingly
+     $ lein lucid docs     - generates documentation from project
+     $ lein lucid import   - imports docstrings from test files
+     $ lein lucid purge    - purges docstrings from code
 
 ## License
 
-Copyright © 2017 FIXME
+Copyright © 2017 Chris Zheng
 
-Distributed under the Eclipse Public License either version 1.0 or (at
-your option) any later version.
+Distributed under the MIT License
