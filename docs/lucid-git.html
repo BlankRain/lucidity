@@ -37,7 +37,7 @@
     <span>&nbsp;</span>
     <a class="sidebar-nav-item header" href="index.html"><img src="img/logo-white.png" style="width:100%; padding-left:1em"/></a>
     <span>&nbsp;</span>
-    <a class="sidebar-nav-item" href="lucid-aether.html">aether</a><a class="sidebar-nav-item" href="lucid-core.html">core</a><a class="sidebar-nav-item" href="lucid-distribute.html">distribute</a><a class="sidebar-nav-item active" href="lucid-git.html">git</a><a class="sidebar-nav-item" href="lucid-mind.html">mind</a><a class="sidebar-nav-item" href="lucid-package.html">package</a><a class="sidebar-nav-item" href="lucid-publish.html">publish</a><a class="sidebar-nav-item" href="lucid-query.html">query</a><a class="sidebar-nav-item" href="lucid-system.html">system</a><a class="sidebar-nav-item" href="lucid-unit.html">unit</a>
+    <a class="sidebar-nav-item" href="lucid-aether.html">aether</a><a class="sidebar-nav-item" href="lucid-core.html">core</a><a class="sidebar-nav-item" href="lucid-distribute.html">distribute</a><a class="sidebar-nav-item active" href="lucid-git.html">git</a><a class="sidebar-nav-item" href="lucid-graph.html">graph</a><a class="sidebar-nav-item" href="lucid-mind.html">mind</a><a class="sidebar-nav-item" href="lucid-package.html">package</a><a class="sidebar-nav-item" href="lucid-publish.html">publish</a><a class="sidebar-nav-item" href="lucid-query.html">query</a><a class="sidebar-nav-item" href="lucid-system.html">system</a><a class="sidebar-nav-item" href="lucid-unit.html">unit</a>
     <span class="sidebar-nav-item">&nbsp;</span>
     <span class="sidebar-nav-item">&nbsp;</span>
   </nav>
@@ -61,9 +61,9 @@
           <div class="heading">
             <div>
               <h5>Author: Chris Zheng&nbsp;&nbsp;<a href="mailto:z@caudate.me">(z@caudate.me)</a></h5>
-              <h5>Date: 16 February 2017</h5>
+              <h5>Date: 14 March 2017</h5>
               <h5>Repository: <a href="https://www.github.com/zcaudate/lucidity">https://www.github.com/zcaudate/lucidity</a></h5>
-              <h5>Version: 1.3.4</h5></div></div>
+              <h5>Version: 1.3.6</h5></div></div>
           <hr/>
           <div class="outline">
             <div class="toc">
@@ -83,7 +83,7 @@
                 </ul>
               </nav>
           </div>
-          <div><span id="introduction"></span><h2><b>1 &nbsp;&nbsp; Introduction</b></h2></div><div><p><code>lucid.git</code> is used to as an interface to <a href='https://eclipse.org/jgit/'>jgit</a>.</p><p>The aims of this project are:</p><ul><li>self-directed exploration of the jgit library</li><li>simple and easy to use interface</li></ul></div><div><span id="installation"></span><h3>1.1 &nbsp;&nbsp; Installation</h3></div><div><p>Add to <code>project.clj</code> dependencies:</p><pre><code>&#91;im.chit/lucid.git &quot;1.3.4&quot;&#93;</code></pre><p>All functionality is in the <code>lucid.git</code> namespace:</p></div><div class="code"><pre><code class="clojure">(require '[lucid.git :refer [git]])</code></pre></div><div><span id="usage"></span><h2><b>2 &nbsp;&nbsp; Usage</b></h2></div><div><span id="help"></span><h3>2.1 &nbsp;&nbsp; Help</h3></div><div><p>To see all commands, there is the <code>:help</code> command:</p></div><div class="code"><pre><code class="clojure">(git :help) ;; or (git)
+          <div><span id="introduction"></span><h2><b>1 &nbsp;&nbsp; Introduction</b></h2></div><div><p><code>lucid.git</code> is used to as an interface to <a href='https://eclipse.org/jgit/'>jgit</a>.</p><p>The aims of this project are:</p><ul><li>self-directed exploration of the jgit library</li><li>simple and easy to use interface</li></ul></div><div><span id="installation"></span><h3>1.1 &nbsp;&nbsp; Installation</h3></div><div><p>Add to <code>project.clj</code> dependencies:</p><pre><code>&#91;im.chit/lucid.git &quot;1.3.6&quot;&#93;</code></pre><p>All functionality is in the <code>lucid.git</code> namespace:</p></div><div class="code"><pre><code class="clojure">(require '[lucid.git :refer [git]])</code></pre></div><div><span id="usage"></span><h2><b>2 &nbsp;&nbsp; Usage</b></h2></div><div><span id="help"></span><h3>2.1 &nbsp;&nbsp; Help</h3></div><div><p>To see all commands, there is the <code>:help</code> command:</p></div><div class="code"><pre><code class="clojure">(git :help) ;; or (git)
 =&gt; [:add :apply :archive :blame :branch :checkout :cherry
     :clean :clone :commit :describe :diff :fetch :gc :init
     :log :ls :merge :name :notes :pull :push :rebase :reflog

@@ -37,7 +37,7 @@
     <span>&nbsp;</span>
     <a class="sidebar-nav-item header" href="index.html"><img src="img/logo-white.png" style="width:100%; padding-left:1em"/></a>
     <span>&nbsp;</span>
-    <a class="sidebar-nav-item" href="lucid-aether.html">aether</a><a class="sidebar-nav-item" href="lucid-core.html">core</a><a class="sidebar-nav-item" href="lucid-distribute.html">distribute</a><a class="sidebar-nav-item" href="lucid-git.html">git</a><a class="sidebar-nav-item" href="lucid-mind.html">mind</a><a class="sidebar-nav-item" href="lucid-package.html">package</a><a class="sidebar-nav-item" href="lucid-publish.html">publish</a><a class="sidebar-nav-item" href="lucid-query.html">query</a><a class="sidebar-nav-item active" href="lucid-system.html">system</a><a class="sidebar-nav-item" href="lucid-unit.html">unit</a>
+    <a class="sidebar-nav-item" href="lucid-aether.html">aether</a><a class="sidebar-nav-item" href="lucid-core.html">core</a><a class="sidebar-nav-item" href="lucid-distribute.html">distribute</a><a class="sidebar-nav-item" href="lucid-git.html">git</a><a class="sidebar-nav-item" href="lucid-graph.html">graph</a><a class="sidebar-nav-item" href="lucid-mind.html">mind</a><a class="sidebar-nav-item" href="lucid-package.html">package</a><a class="sidebar-nav-item" href="lucid-publish.html">publish</a><a class="sidebar-nav-item" href="lucid-query.html">query</a><a class="sidebar-nav-item active" href="lucid-system.html">system</a><a class="sidebar-nav-item" href="lucid-unit.html">unit</a>
     <span class="sidebar-nav-item">&nbsp;</span>
     <span class="sidebar-nav-item">&nbsp;</span>
   </nav>
@@ -61,9 +61,9 @@
           <div class="heading">
             <div>
               <h5>Author: Chris Zheng&nbsp;&nbsp;<a href="mailto:z@caudate.me">(z@caudate.me)</a></h5>
-              <h5>Date: 16 February 2017</h5>
+              <h5>Date: 14 March 2017</h5>
               <h5>Repository: <a href="https://www.github.com/zcaudate/lucidity">https://www.github.com/zcaudate/lucidity</a></h5>
-              <h5>Version: 1.3.4</h5></div></div>
+              <h5>Version: 1.3.6</h5></div></div>
           <hr/>
           <div class="outline">
             <div class="toc">
@@ -83,7 +83,7 @@
                 </ul>
               </nav>
           </div>
-          <div><p><strong>lucid.system</strong> is a wrapper around the <a href='https://github.com/dblock/oshi'>oshi</a> project, a free JNA-based (native) operating system information library for Java.</p></div><div><span id="installation"></span><h2><b>1 &nbsp;&nbsp; Installation</b></h2></div><div><p>Add to <code>project.clj</code> dependencies:</p><pre><code>&#91;im.chit/lucid.system &quot;1.3.4&quot;&#93;</code></pre><p><strong>lucid.system</strong> contain basic methods for class checking and predicates.</p></div><div class="code"><pre><code class="clojure">(require '[lucid.system :as system])</code></pre></div><div><span id="api"></span><h2><b>2 &nbsp;&nbsp; API</b></h2></div><div><span id="hardware"></span><h3>2.1 &nbsp;&nbsp; Hardware</h3></div><div class="api"><span id="entry__lucid_system__"></span><hr /><div><ul><li><a data-scroll="" href="#entry__lucid_system__computer_system">computer-system</a></li><li><a data-scroll="" href="#entry__lucid_system__cpu">cpu</a></li><li><a data-scroll="" href="#entry__lucid_system__displays">displays</a></li><li><a data-scroll="" href="#entry__lucid_system__fs">fs</a></li><li><a data-scroll="" href="#entry__lucid_system__memory">memory</a></li><li><a data-scroll="" href="#entry__lucid_system__network_ifs">network-ifs</a></li><li><a data-scroll="" href="#entry__lucid_system__power">power</a></li><li><a data-scroll="" href="#entry__lucid_system__sensors">sensors</a></li><li><a data-scroll="" href="#entry__lucid_system__usb">usb</a></li></ul><hr style="margin-bottom: 0" /><div><div class="entry"><span id="entry__lucid_system__computer_system"></span><div class="entry-description"><h4><b>computer-system&nbsp<a data-scroll="" href="#entry__lucid_system__">^</a></b></h4><p><i>returns specs of  the current system</i></p></div><div class="entry-option"><h6><a href="https://www.github.com/zcaudate/lucidity/blob/master/src/lucid/system.clj#L27-L44" target="_blank">v&nbsp;0.1</a></h6><div><input class="source-toggle" id="entry__pre_lucid_system__computer_system" type="checkbox" /><label class="source-toggle" for="entry__pre_lucid_system__computer_system"></label><pre class="source"><code class="clojure">(defn computer-system
+          <div><p><strong>lucid.system</strong> is a wrapper around the <a href='https://github.com/dblock/oshi'>oshi</a> project, a free JNA-based (native) operating system information library for Java.</p></div><div><span id="installation"></span><h2><b>1 &nbsp;&nbsp; Installation</b></h2></div><div><p>Add to <code>project.clj</code> dependencies:</p><pre><code>&#91;im.chit/lucid.system &quot;1.3.6&quot;&#93;</code></pre><p><strong>lucid.system</strong> contain basic methods for class checking and predicates.</p></div><div class="code"><pre><code class="clojure">(require '[lucid.system :as system])</code></pre></div><div><span id="api"></span><h2><b>2 &nbsp;&nbsp; API</b></h2></div><div><span id="hardware"></span><h3>2.1 &nbsp;&nbsp; Hardware</h3></div><div class="api"><span id="entry__lucid_system__"></span><hr /><div><ul><li><a data-scroll="" href="#entry__lucid_system__computer_system">computer-system</a></li><li><a data-scroll="" href="#entry__lucid_system__cpu">cpu</a></li><li><a data-scroll="" href="#entry__lucid_system__displays">displays</a></li><li><a data-scroll="" href="#entry__lucid_system__fs">fs</a></li><li><a data-scroll="" href="#entry__lucid_system__memory">memory</a></li><li><a data-scroll="" href="#entry__lucid_system__network_ifs">network-ifs</a></li><li><a data-scroll="" href="#entry__lucid_system__power">power</a></li><li><a data-scroll="" href="#entry__lucid_system__sensors">sensors</a></li><li><a data-scroll="" href="#entry__lucid_system__usb">usb</a></li></ul><hr style="margin-bottom: 0" /><div><div class="entry"><span id="entry__lucid_system__computer_system"></span><div class="entry-description"><h4><b>computer-system&nbsp<a data-scroll="" href="#entry__lucid_system__">^</a></b></h4><p><i>returns specs of  the current system</i></p></div><div class="entry-option"><h6><a href="https://www.github.com/zcaudate/lucidity/blob/master/src/lucid/system.clj#L29-L46" target="_blank">v&nbsp;0.1</a></h6><div><input class="source-toggle" id="entry__pre_lucid_system__computer_system" type="checkbox" /><label class="source-toggle" for="entry__pre_lucid_system__computer_system"></label><pre class="source"><code class="clojure">(defn computer-system
   []
   (-> (oshi.SystemInfo.)
       (.getHardware)
@@ -95,7 +95,7 @@
 ;;                    :name "EFI",
 ;;                    :version "MBP114.0172.B13"},
 ;;         :manufacturer "Apple Inc.",
-;;         :model "MacBook Pro (MacBookPro11,5)", :serial-number "C02RR24EG8WP"}</code></pre></div><div class="entry"><span id="entry__lucid_system__cpu"></span><div class="entry-description"><h4><b>cpu&nbsp<a data-scroll="" href="#entry__lucid_system__">^</a></b></h4><p><i>returns cpu information</i></p></div><div class="entry-option"><h6><a href="https://www.github.com/zcaudate/lucidity/blob/master/src/lucid/system.clj#L137-L159" target="_blank">v&nbsp;0.1</a></h6><div><input class="source-toggle" id="entry__pre_lucid_system__cpu" type="checkbox" /><label class="source-toggle" for="entry__pre_lucid_system__cpu"></label><pre class="source"><code class="clojure">(defn cpu
+;;         :model "MacBook Pro (MacBookPro11,5)", :serial-number "C02RR24EG8WP"}</code></pre></div><div class="entry"><span id="entry__lucid_system__cpu"></span><div class="entry-description"><h4><b>cpu&nbsp<a data-scroll="" href="#entry__lucid_system__">^</a></b></h4><p><i>returns cpu information</i></p></div><div class="entry-option"><h6><a href="https://www.github.com/zcaudate/lucidity/blob/master/src/lucid/system.clj#L139-L161" target="_blank">v&nbsp;0.1</a></h6><div><input class="source-toggle" id="entry__pre_lucid_system__cpu" type="checkbox" /><label class="source-toggle" for="entry__pre_lucid_system__cpu"></label><pre class="source"><code class="clojure">(defn cpu
   []
   (-> (oshi.SystemInfo.)
       (.getHardware)
@@ -112,7 +112,7 @@
 ;;         :identifier "Intel64 Family 6 Model 70 Stepping 1",
 ;;         :system-uptime 30980, :stepping "1",
 ;;         :system-load-average 1.19970703125,
-;;         :vendor-freq 2500000000, :model "70"}</code></pre></div><div class="entry"><span id="entry__lucid_system__displays"></span><div class="entry-description"><h4><b>displays&nbsp<a data-scroll="" href="#entry__lucid_system__">^</a></b></h4><p><i>returns display information</i></p></div><div class="entry-option"><h6><a href="https://www.github.com/zcaudate/lucidity/blob/master/src/lucid/system.clj#L67-L83" target="_blank">v&nbsp;0.1</a></h6><div><input class="source-toggle" id="entry__pre_lucid_system__displays" type="checkbox" /><label class="source-toggle" for="entry__pre_lucid_system__displays"></label><pre class="source"><code class="clojure">(defn displays
+;;         :vendor-freq 2500000000, :model "70"}</code></pre></div><div class="entry"><span id="entry__lucid_system__displays"></span><div class="entry-description"><h4><b>displays&nbsp<a data-scroll="" href="#entry__lucid_system__">^</a></b></h4><p><i>returns display information</i></p></div><div class="entry-option"><h6><a href="https://www.github.com/zcaudate/lucidity/blob/master/src/lucid/system.clj#L69-L85" target="_blank">v&nbsp;0.1</a></h6><div><input class="source-toggle" id="entry__pre_lucid_system__displays" type="checkbox" /><label class="source-toggle" for="entry__pre_lucid_system__displays"></label><pre class="source"><code class="clojure">(defn displays
   []
   (-> (oshi.SystemInfo.)
       (.getHardware)
@@ -123,7 +123,7 @@
 ;;                     ...
 ;;                     0 0 0 0 16 0 0 0 0 0 0 0 0 0 0 0 0
 ;;                     ...
-;;                     0 0 0 -48]})</code></pre></div><div class="entry"><span id="entry__lucid_system__fs"></span><div class="entry-description"><h4><b>fs&nbsp<a data-scroll="" href="#entry__lucid_system__">^</a></b></h4><p><i>returns disk store information</i></p></div><div class="entry-option"><h6><a href="https://www.github.com/zcaudate/lucidity/blob/master/src/lucid/system.clj#L46-L65" target="_blank">v&nbsp;0.1</a></h6><div><input class="source-toggle" id="entry__pre_lucid_system__fs" type="checkbox" /><label class="source-toggle" for="entry__pre_lucid_system__fs"></label><pre class="source"><code class="clojure">(defn fs
+;;                     0 0 0 -48]})</code></pre></div><div class="entry"><span id="entry__lucid_system__fs"></span><div class="entry-description"><h4><b>fs&nbsp<a data-scroll="" href="#entry__lucid_system__">^</a></b></h4><p><i>returns disk store information</i></p></div><div class="entry-option"><h6><a href="https://www.github.com/zcaudate/lucidity/blob/master/src/lucid/system.clj#L48-L67" target="_blank">v&nbsp;0.1</a></h6><div><input class="source-toggle" id="entry__pre_lucid_system__fs" type="checkbox" /><label class="source-toggle" for="entry__pre_lucid_system__fs"></label><pre class="source"><code class="clojure">(defn fs
   []
   (-> (oshi.SystemInfo.)
       (.getHardware)
@@ -137,7 +137,7 @@
 ;;                         :mount-point "", :name "EFI", :size 209715200,
 ;;                         :type "EFI System Partition"}]
 ;;           :time-stamp 1487147164390, :read-bytes 3176375808,
-;;           :reads 132357, :model "APPLE SSD SM0512G"})</code></pre></div><div class="entry"><span id="entry__lucid_system__memory"></span><div class="entry-description"><h4><b>memory&nbsp<a data-scroll="" href="#entry__lucid_system__">^</a></b></h4><p><i>returns memory information</i></p></div><div class="entry-option"><h6><a href="https://www.github.com/zcaudate/lucidity/blob/master/src/lucid/system.clj#L85-L99" target="_blank">v&nbsp;0.1</a></h6><div><input class="source-toggle" id="entry__pre_lucid_system__memory" type="checkbox" /><label class="source-toggle" for="entry__pre_lucid_system__memory"></label><pre class="source"><code class="clojure">(defn memory
+;;           :reads 132357, :model "APPLE SSD SM0512G"})</code></pre></div><div class="entry"><span id="entry__lucid_system__memory"></span><div class="entry-description"><h4><b>memory&nbsp<a data-scroll="" href="#entry__lucid_system__">^</a></b></h4><p><i>returns memory information</i></p></div><div class="entry-option"><h6><a href="https://www.github.com/zcaudate/lucidity/blob/master/src/lucid/system.clj#L87-L101" target="_blank">v&nbsp;0.1</a></h6><div><input class="source-toggle" id="entry__pre_lucid_system__memory" type="checkbox" /><label class="source-toggle" for="entry__pre_lucid_system__memory"></label><pre class="source"><code class="clojure">(defn memory
   []
   (-> (oshi.SystemInfo.)
       (.getHardware)
@@ -146,7 +146,7 @@
 ;; => #memory{:available 4792446976,
 ;;            :swap-total 0,
 ;;            :swap-used 0,
-;;            :total 17179869184}</code></pre></div><div class="entry"><span id="entry__lucid_system__network_ifs"></span><div class="entry-description"><h4><b>network-ifs&nbsp<a data-scroll="" href="#entry__lucid_system__">^</a></b></h4><p><i>returns network interface information</i></p></div><div class="entry-option"><h6><a href="https://www.github.com/zcaudate/lucidity/blob/master/src/lucid/system.clj#L101-L119" target="_blank">v&nbsp;0.1</a></h6><div><input class="source-toggle" id="entry__pre_lucid_system__network_ifs" type="checkbox" /><label class="source-toggle" for="entry__pre_lucid_system__network_ifs"></label><pre class="source"><code class="clojure">(defn network-ifs
+;;            :total 17179869184}</code></pre></div><div class="entry"><span id="entry__lucid_system__network_ifs"></span><div class="entry-description"><h4><b>network-ifs&nbsp<a data-scroll="" href="#entry__lucid_system__">^</a></b></h4><p><i>returns network interface information</i></p></div><div class="entry-option"><h6><a href="https://www.github.com/zcaudate/lucidity/blob/master/src/lucid/system.clj#L103-L121" target="_blank">v&nbsp;0.1</a></h6><div><input class="source-toggle" id="entry__pre_lucid_system__network_ifs" type="checkbox" /><label class="source-toggle" for="entry__pre_lucid_system__network_ifs"></label><pre class="source"><code class="clojure">(defn network-ifs
   []
   (-> (oshi.SystemInfo.)
       (.getHardware)
@@ -159,7 +159,7 @@
 ;;          :bytes-sent 6460, :out-errors 0, 
 ;;          :in-errors 0, :display-name "awdl0",
 ;;          :ipv6addr ["fe80:0:0:0:5033:aaff:fe41:8627"],
-;;          :time-stamp 1487147416141, :bytes-recv 0})</code></pre></div><div class="entry"><span id="entry__lucid_system__power"></span><div class="entry-description"><h4><b>power&nbsp<a data-scroll="" href="#entry__lucid_system__">^</a></b></h4><p><i>returns power information</i></p></div><div class="entry-option"><h6><a href="https://www.github.com/zcaudate/lucidity/blob/master/src/lucid/system.clj#L121-L135" target="_blank">v&nbsp;0.1</a></h6><div><input class="source-toggle" id="entry__pre_lucid_system__power" type="checkbox" /><label class="source-toggle" for="entry__pre_lucid_system__power"></label><pre class="source"><code class="clojure">(defn power
+;;          :time-stamp 1487147416141, :bytes-recv 0})</code></pre></div><div class="entry"><span id="entry__lucid_system__power"></span><div class="entry-description"><h4><b>power&nbsp<a data-scroll="" href="#entry__lucid_system__">^</a></b></h4><p><i>returns power information</i></p></div><div class="entry-option"><h6><a href="https://www.github.com/zcaudate/lucidity/blob/master/src/lucid/system.clj#L123-L137" target="_blank">v&nbsp;0.1</a></h6><div><input class="source-toggle" id="entry__pre_lucid_system__power" type="checkbox" /><label class="source-toggle" for="entry__pre_lucid_system__power"></label><pre class="source"><code class="clojure">(defn power
   []
   (-> (oshi.SystemInfo.)
       (.getHardware)
@@ -168,7 +168,7 @@
       (to-data)))</code></pre></div></div><pre><h6><i><a href="https://www.github.com/zcaudate/lucidity/blob/master/test/lucid/system_test.clj#L78-L84" target="_blank">link</a></i></h6><code class="clojure">(power)
 ;; => (#power{:name "InternalBattery-0",
 ;;            :remaining-capacity 1.0,
-;;            :time-remaining -2.0})</code></pre></div><div class="entry"><span id="entry__lucid_system__sensors"></span><div class="entry-description"><h4><b>sensors&nbsp<a data-scroll="" href="#entry__lucid_system__">^</a></b></h4><p><i>returns sensor information</i></p></div><div class="entry-option"><h6><a href="https://www.github.com/zcaudate/lucidity/blob/master/src/lucid/system.clj#L161-L174" target="_blank">v&nbsp;0.1</a></h6><div><input class="source-toggle" id="entry__pre_lucid_system__sensors" type="checkbox" /><label class="source-toggle" for="entry__pre_lucid_system__sensors"></label><pre class="source"><code class="clojure">(defn sensors
+;;            :time-remaining -2.0})</code></pre></div><div class="entry"><span id="entry__lucid_system__sensors"></span><div class="entry-description"><h4><b>sensors&nbsp<a data-scroll="" href="#entry__lucid_system__">^</a></b></h4><p><i>returns sensor information</i></p></div><div class="entry-option"><h6><a href="https://www.github.com/zcaudate/lucidity/blob/master/src/lucid/system.clj#L163-L176" target="_blank">v&nbsp;0.1</a></h6><div><input class="source-toggle" id="entry__pre_lucid_system__sensors" type="checkbox" /><label class="source-toggle" for="entry__pre_lucid_system__sensors"></label><pre class="source"><code class="clojure">(defn sensors
   []
   (-> (oshi.SystemInfo.)
       (.getHardware)
@@ -176,7 +176,7 @@
       (to-data)))</code></pre></div></div><pre><h6><i><a href="https://www.github.com/zcaudate/lucidity/blob/master/test/lucid/system_test.clj#L105-L111" target="_blank">link</a></i></h6><code class="clojure">(sensors)
 ;; => #sensors{:cpu-temperature 42.125,
 ;;             :cpu-voltage 173798.992,
-;;             :fan-speeds [2163 1999]}</code></pre></div><div class="entry"><span id="entry__lucid_system__usb"></span><div class="entry-description"><h4><b>usb&nbsp<a data-scroll="" href="#entry__lucid_system__">^</a></b></h4><p><i>returns usb information</i></p></div><div class="entry-option"><h6><a href="https://www.github.com/zcaudate/lucidity/blob/master/src/lucid/system.clj#L176-L193" target="_blank">v&nbsp;0.1</a></h6><div><input class="source-toggle" id="entry__pre_lucid_system__usb" type="checkbox" /><label class="source-toggle" for="entry__pre_lucid_system__usb"></label><pre class="source"><code class="clojure">(defn usb
+;;             :fan-speeds [2163 1999]}</code></pre></div><div class="entry"><span id="entry__lucid_system__usb"></span><div class="entry-description"><h4><b>usb&nbsp<a data-scroll="" href="#entry__lucid_system__">^</a></b></h4><p><i>returns usb information</i></p></div><div class="entry-option"><h6><a href="https://www.github.com/zcaudate/lucidity/blob/master/src/lucid/system.clj#L178-L195" target="_blank">v&nbsp;0.1</a></h6><div><input class="source-toggle" id="entry__pre_lucid_system__usb" type="checkbox" /><label class="source-toggle" for="entry__pre_lucid_system__usb"></label><pre class="source"><code class="clojure">(defn usb
   []
   (-> (oshi.SystemInfo.)
       (.getHardware)
@@ -188,7 +188,7 @@
 ;;          :vendor "Apple Inc."}
 ;;     #usb{:name "Bluetooth USB Host Controller",
 ;;          :product-id "8290",
-;;          :vendor "Broadcom Corp."})</code></pre></div></div></div></div><div><span id="os"></span><h3>2.2 &nbsp;&nbsp; OS</h3></div><div class="api"><span id="entry__lucid_system__"></span><hr /><div><ul><li><a data-scroll="" href="#entry__lucid_system__os">os</a></li><li><a data-scroll="" href="#entry__lucid_system__all">all</a></li></ul><hr style="margin-bottom: 0" /><div><div class="entry"><span id="entry__lucid_system__os"></span><div class="entry-description"><h4><b>os&nbsp<a data-scroll="" href="#entry__lucid_system__">^</a></b></h4><p><i>returns operating system information</i></p></div><div class="entry-option"><h6><a href="https://www.github.com/zcaudate/lucidity/blob/master/src/lucid/system.clj#L195-L221" target="_blank">v&nbsp;0.1</a></h6><div><input class="source-toggle" id="entry__pre_lucid_system__os" type="checkbox" /><label class="source-toggle" for="entry__pre_lucid_system__os"></label><pre class="source"><code class="clojure">(defn os
+;;          :vendor "Broadcom Corp."})</code></pre></div></div></div></div><div><span id="os"></span><h3>2.2 &nbsp;&nbsp; OS</h3></div><div class="api"><span id="entry__lucid_system__"></span><hr /><div><ul><li><a data-scroll="" href="#entry__lucid_system__os">os</a></li><li><a data-scroll="" href="#entry__lucid_system__all">all</a></li></ul><hr style="margin-bottom: 0" /><div><div class="entry"><span id="entry__lucid_system__os"></span><div class="entry-description"><h4><b>os&nbsp<a data-scroll="" href="#entry__lucid_system__">^</a></b></h4><p><i>returns operating system information</i></p></div><div class="entry-option"><h6><a href="https://www.github.com/zcaudate/lucidity/blob/master/src/lucid/system.clj#L197-L223" target="_blank">v&nbsp;0.1</a></h6><div><input class="source-toggle" id="entry__pre_lucid_system__os" type="checkbox" /><label class="source-toggle" for="entry__pre_lucid_system__os"></label><pre class="source"><code class="clojure">(defn os
   []
   (-> (oshi.SystemInfo.)
       (.getOperatingSystem)
@@ -209,16 +209,16 @@
 ;;        :version {:build-number "16D32"
 ;;                  :code-name "Sierra",
 ;;                  :osx-version-number 12,
-;;                  :version "10.12.3"}}</code></pre></div><div class="entry"><span id="entry__lucid_system__all"></span><div class="entry-description"><h4><b>all&nbsp<a data-scroll="" href="#entry__lucid_system__">^</a></b></h4><p><i>returns the entire map of the current system</i></p></div><div class="entry-option"><h6><a href="https://www.github.com/zcaudate/lucidity/blob/master/src/lucid/system.clj#L16-L25" target="_blank">v&nbsp;0.1</a></h6><div><input class="source-toggle" id="entry__pre_lucid_system__all" type="checkbox" /><label class="source-toggle" for="entry__pre_lucid_system__all"></label><pre class="source"><code class="clojure">(defn all
+;;                  :version "10.12.3"}}</code></pre></div><div class="entry"><span id="entry__lucid_system__all"></span><div class="entry-description"><h4><b>all&nbsp<a data-scroll="" href="#entry__lucid_system__">^</a></b></h4><p><i>returns the entire map of the current system</i></p></div><div class="entry-option"><h6><a href="https://www.github.com/zcaudate/lucidity/blob/master/src/lucid/system.clj#L18-L27" target="_blank">v&nbsp;0.1</a></h6><div><input class="source-toggle" id="entry__pre_lucid_system__all" type="checkbox" /><label class="source-toggle" for="entry__pre_lucid_system__all"></label><pre class="source"><code class="clojure">(defn all
   []
   (binding [*raw* false]
     (to-data (oshi.SystemInfo.))))</code></pre></div></div><pre><h6><i><a href="https://www.github.com/zcaudate/lucidity/blob/master/test/lucid/system_test.clj#L9-L13" target="_blank">link</a></i></h6><code class="clojure">(all)
-;; => <EVERYTHING></code></pre></div></div></div></div><div><span id="process"></span><h3>2.3 &nbsp;&nbsp; Process</h3></div><div class="api"><span id="entry__lucid_system__"></span><hr /><div><ul><li><a data-scroll="" href="#entry__lucid_system__process_id">process-id</a></li><li><a data-scroll="" href="#entry__lucid_system__process">process</a></li><li><a data-scroll="" href="#entry__lucid_system__list_processes">list-processes</a></li></ul><hr style="margin-bottom: 0" /><div><div class="entry"><span id="entry__lucid_system__process_id"></span><div class="entry-description"><h4><b>process-id&nbsp<a data-scroll="" href="#entry__lucid_system__">^</a></b></h4><p><i>returns the current process id</i></p></div><div class="entry-option"><h6><a href="https://www.github.com/zcaudate/lucidity/blob/master/src/lucid/system.clj#L223-L233" target="_blank">v&nbsp;0.1</a></h6><div><input class="source-toggle" id="entry__pre_lucid_system__process_id" type="checkbox" /><label class="source-toggle" for="entry__pre_lucid_system__process_id"></label><pre class="source"><code class="clojure">(defn process-id
+;; => <EVERYTHING></code></pre></div></div></div></div><div><span id="process"></span><h3>2.3 &nbsp;&nbsp; Process</h3></div><div class="api"><span id="entry__lucid_system__"></span><hr /><div><ul><li><a data-scroll="" href="#entry__lucid_system__process_id">process-id</a></li><li><a data-scroll="" href="#entry__lucid_system__process">process</a></li><li><a data-scroll="" href="#entry__lucid_system__list_processes">list-processes</a></li></ul><hr style="margin-bottom: 0" /><div><div class="entry"><span id="entry__lucid_system__process_id"></span><div class="entry-description"><h4><b>process-id&nbsp<a data-scroll="" href="#entry__lucid_system__">^</a></b></h4><p><i>returns the current process id</i></p></div><div class="entry-option"><h6><a href="https://www.github.com/zcaudate/lucidity/blob/master/src/lucid/system.clj#L225-L235" target="_blank">v&nbsp;0.1</a></h6><div><input class="source-toggle" id="entry__pre_lucid_system__process_id" type="checkbox" /><label class="source-toggle" for="entry__pre_lucid_system__process_id"></label><pre class="source"><code class="clojure">(defn process-id
   []
   (-> (oshi.SystemInfo.)
       (.getOperatingSystem)
       (.getProcessId)))</code></pre></div></div><pre><h6><i><a href="https://www.github.com/zcaudate/lucidity/blob/master/test/lucid/system_test.clj#L149-L153" target="_blank">link</a></i></h6><code class="clojure">(process-id)
-;;=> 9317</code></pre></div><div class="entry"><span id="entry__lucid_system__process"></span><div class="entry-description"><h4><b>process&nbsp<a data-scroll="" href="#entry__lucid_system__">^</a></b></h4><p><i>returns information about a process given it's id</i></p></div><div class="entry-option"><h6><a href="https://www.github.com/zcaudate/lucidity/blob/master/src/lucid/system.clj#L235-L259" target="_blank">v&nbsp;0.1</a></h6><div><input class="source-toggle" id="entry__pre_lucid_system__process" type="checkbox" /><label class="source-toggle" for="entry__pre_lucid_system__process"></label><pre class="source"><code class="clojure">(defn process
+;;=> 9317</code></pre></div><div class="entry"><span id="entry__lucid_system__process"></span><div class="entry-description"><h4><b>process&nbsp<a data-scroll="" href="#entry__lucid_system__">^</a></b></h4><p><i>returns information about a process given it's id</i></p></div><div class="entry-option"><h6><a href="https://www.github.com/zcaudate/lucidity/blob/master/src/lucid/system.clj#L237-L261" target="_blank">v&nbsp;0.1</a></h6><div><input class="source-toggle" id="entry__pre_lucid_system__process" type="checkbox" /><label class="source-toggle" for="entry__pre_lucid_system__process"></label><pre class="source"><code class="clojure">(defn process
   [id]
   (-> (oshi.SystemInfo.)
       (.getOperatingSystem)
@@ -237,7 +237,7 @@
 ;;             :priority 31, 
 ;;             :bytes-read 16384,
 ;;             :up-time 7672182,
-;;             :process-id 9317}</code></pre></div><div class="entry"><span id="entry__lucid_system__list_processes"></span><div class="entry-description"><h4><b>list-processes&nbsp<a data-scroll="" href="#entry__lucid_system__">^</a></b></h4><p><i>returns information about all running processes on the os</i></p></div><div class="entry-option"><h6><a href="https://www.github.com/zcaudate/lucidity/blob/master/src/lucid/system.clj#L271-L302" target="_blank">v&nbsp;0.1</a></h6><div><input class="source-toggle" id="entry__pre_lucid_system__list_processes" type="checkbox" /><label class="source-toggle" for="entry__pre_lucid_system__list_processes"></label><pre class="source"><code class="clojure">(defn list-processes
+;;             :process-id 9317}</code></pre></div><div class="entry"><span id="entry__lucid_system__list_processes"></span><div class="entry-description"><h4><b>list-processes&nbsp<a data-scroll="" href="#entry__lucid_system__">^</a></b></h4><p><i>returns information about all running processes on the os</i></p></div><div class="entry-option"><h6><a href="https://www.github.com/zcaudate/lucidity/blob/master/src/lucid/system.clj#L273-L304" target="_blank">v&nbsp;0.1</a></h6><div><input class="source-toggle" id="entry__pre_lucid_system__list_processes" type="checkbox" /><label class="source-toggle" for="entry__pre_lucid_system__list_processes"></label><pre class="source"><code class="clojure">(defn list-processes
   ([] (list-processes 50 :cpu))
   ([limit] (list-processes limit :cpu))
   ([limit sort-key]
@@ -248,7 +248,9 @@
          (.getOperatingSystem)
          (.getProcesses limit (process-sort sort-key))
          seq
-         (to-data)))))</code></pre></div></div><pre><h6><i><a href="https://www.github.com/zcaudate/lucidity/blob/master/test/lucid/system_test.clj#L177-L193" target="_blank">link</a></i></h6><code class="clojure">;; #{:name :oldest :memory :pid :newest :cpu :parentpid}
+         (to-data)))))</code></pre></div></div><pre><h6><i><a href="https://www.github.com/zcaudate/lucidity/blob/master/test/lucid/system_test.clj#L177-L195" target="_blank">link</a></i></h6><code class="clojure">;; ordering options:
+#{:name :oldest :memory :pid :newest :cpu :parentpid}
+
 (list-processes 2 :name)
 ;; => (#process{:parent-process-id 1,
 ;;              :path "/System/Library/Frameworks/Accounts.framework/Versions/A/Support/accountsd",
