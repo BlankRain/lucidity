@@ -24,13 +24,15 @@ List of current libraries:
 
 - [lucid.aether](http://docs.caudate.me/lucidity/lucid-aether.html) - 
 [![Clojars](https://img.shields.io/clojars/v/im.chit/lucid.aether.svg)](https://clojars.org/im.chit/lucid.aether) wrapper for `org.eclipse.aether`
-- [lucid.core](http://docs.caudate.me/lucidity/lucid-core.html) - 
-[![Clojars](https://img.shields.io/clojars/v/im.chit/lucid.core.svg)](https://clojars.org/im.chit/lucid.core)functions for the code environment
+- [lucid.core](http://docs.caudate.me/lucidity/lucid-core.html) - functions for the code environment
 - [lucid.distribute](http://docs.caudate.me/lucidity/lucid-distribute.html) - 
 [![Clojars](https://img.shields.io/clojars/v/im.chit/lucid.distribute.svg)](https://clojars.org/im.chit/lucid.distribute)code repackaging and distribution
 - [lucid.git](http://docs.caudate.me/lucidity/lucid-git.html) - 
 [![Clojars](https://img.shields.io/clojars/v/im.chit/lucid.git.svg)](https://clojars.org/im.chit/lucid.git)
 wrapper for `org.eclipse.jgit`
+- [lucid.graph](http://docs.caudate.me/lucidity/lucid-graph.html) - 
+[![Clojars](https://img.shields.io/clojars/v/im.chit/lucid.graph.svg)](https://clojars.org/im.chit/lucid.graph)
+simple graph visualisations
 - [lucid.mind](http://docs.caudate.me/lucidity/lucid-mind.html) - 
 [![Clojars](https://img.shields.io/clojars/v/im.chit/lucid.mind.svg)](https://clojars.org/im.chit/lucid.mind)
 contemplative reflection for the jvm
@@ -40,7 +42,7 @@ project packaging and dependencies
 - [lucid.publish](http://docs.caudate.me/lucidity/lucid-publish.html) - 
 [![Clojars](https://img.shields.io/clojars/v/im.chit/lucid.publish.svg)](https://clojars.org/im.chit/lucid.publish)
 generate documentation from code
-- [lucid.query](http://docs.caudate.me/lucidity/lucid-query.html) - 
+- [lucid.query](http://docs.caudate.me/lucidity/lucidityucid-query.html) - 
 [![Clojars](https://img.shields.io/clojars/v/im.chit/lucid.query.svg)](https://clojars.org/im.chit/lucid.query)
 intuitive search for code
 - [lucid.system](http://docs.caudate.me/lucidity/lucid-system.html) - 
