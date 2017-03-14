@@ -1,4 +1,4 @@
-(defproject im.chit/lucid "1.3.6"
+(defproject im.chit/lucid "1.3.7"
   :description "tools for code clarity"
   :url "https://www.github.com/zcaudate/lucidity"
   :license {:name "The MIT License"
