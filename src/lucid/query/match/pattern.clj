@@ -5,7 +5,7 @@
               [eval :as eval]
               [optional :as optional]]
              [lucid.query.common :as common]
-             [clojure.core.match :as match]
+             [lucid.legacy.match :as match]
              [clojure.walk :as walk]))
 
 (defn transform-pattern

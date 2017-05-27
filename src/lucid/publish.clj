@@ -164,8 +164,9 @@
          watchers (mapv (fn [[dir files lookup]]
                           (-> (watch/watcher [dir]
                                              (fn [_ file]
-                                               (println "publish:" (lookup (.getName file)))
-                                               (publish [(lookup (.getName file))] {} project))
+                                               (when-let [index (lookup (.getName file))]
+                                                 (println "publish:" index)
+                                                 (publish [(lookup (.getName file))] {} project)))
                                              {:recursive false
                                               :filter files})
                               (watch/start-watcher)))

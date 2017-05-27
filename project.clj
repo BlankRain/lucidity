@@ -1,32 +1,30 @@
-(defproject im.chit/lucid "1.3.7"
+(defproject im.chit/lucid "1.3.8"
   :description "tools for code clarity"
   :url "https://www.github.com/zcaudate/lucidity"
   :license {:name "The MIT License"
             :url "http://opensource.org/licenses/MIT"}
   :aliases {"test" ["run" "-m" "hara.test" ":exit"]}
   :dependencies [[org.clojure/clojure             "1.8.0"]
-                 [org.clojure/core.match          "0.2.2"]
-                 [org.clojure/tools.analyzer.jvm  "0.6.5"]
                  
-                 [im.chit/hara.common.checks      "2.5.2"]
-                 [im.chit/hara.concurrent.latch   "2.5.2"]
-                 [im.chit/hara.data.diff          "2.5.2"]
-                 [im.chit/hara.data.nested        "2.5.2"]
-                 [im.chit/hara.event              "2.5.2"]
-                 [im.chit/hara.io.archive         "2.5.2"]
-                 [im.chit/hara.io.classloader     "2.5.2"]
-                 [im.chit/hara.io.classpath       "2.5.2"]
-                 [im.chit/hara.io.encode          "2.5.2"]
-                 [im.chit/hara.io.file            "2.5.2"]
-                 [im.chit/hara.io.project         "2.5.2"]
-                 [im.chit/hara.io.watch           "2.5.2"]
-                 [im.chit/hara.namespace          "2.5.2"]
-                 [im.chit/hara.object             "2.5.2"]
-                 [im.chit/hara.reflect            "2.5.2"]
-                 [im.chit/hara.security           "2.5.2"]
-                 [im.chit/hara.string.case        "2.5.2"]
-                 [im.chit/hara.string.prose       "2.5.2"]
-                 [im.chit/hara.test               "2.5.2"]
+                 [im.chit/hara.common.checks      "2.5.3"]
+                 [im.chit/hara.concurrent.latch   "2.5.3"]
+                 [im.chit/hara.data.diff          "2.5.3"]
+                 [im.chit/hara.data.nested        "2.5.3"]
+                 [im.chit/hara.event              "2.5.3"]
+                 [im.chit/hara.io.archive         "2.5.3"]
+                 [im.chit/hara.io.classloader     "2.5.3"]
+                 [im.chit/hara.io.classpath       "2.5.3"]
+                 [im.chit/hara.io.encode          "2.5.3"]
+                 [im.chit/hara.io.file            "2.5.3"]
+                 [im.chit/hara.io.project         "2.5.3"]
+                 [im.chit/hara.io.watch           "2.5.3"]
+                 [im.chit/hara.namespace          "2.5.3"]
+                 [im.chit/hara.object             "2.5.3"]
+                 [im.chit/hara.reflect            "2.5.3"]
+                 [im.chit/hara.security           "2.5.3"]
+                 [im.chit/hara.string.case        "2.5.3"]
+                 [im.chit/hara.string.prose       "2.5.3"]
+                 [im.chit/hara.test               "2.5.3"]
                  
                  [org.eclipse.aether/aether-api "1.1.0"]
                  [org.eclipse.aether/aether-spi "1.1.0"]
@@ -44,7 +42,7 @@
                  [org.bouncycastle/bcpg-jdk15on "1.56"]
                  [version-clj/version-clj "0.1.2"]
                  [rewrite-clj/rewrite-clj "0.6.0"]
-                 [markdown-clj/markdown-clj "0.9.97"]
+                 [markdown-clj/markdown-clj "0.9.99"]
                  [hiccup/hiccup "1.0.5"]
                  [stencil/stencil "0.5.0"]
                  [org.eclipse.jgit "4.6.0.201612231935-r"]
@@ -54,7 +52,7 @@
                  [org.graphstream/gs-ui "1.3"
                     :exclusions [[bouncycastle/bcprov-jdk14]
                                  [bouncycastle/bcmail-jdk14]]]
-                 [net.bytebuddy/byte-buddy "1.6.9"]
+                 [net.bytebuddy/byte-buddy "1.7.0"]
                  ;[w01fe/sniper "0.1.0"]
                  ;[seesaw "1.4.5"]
                  ]
@@ -122,9 +120,9 @@
                      :title "unit"
                      :subtitle "metadata through unit tests"}}}
   
-  :profiles {:dev {:dependencies [[compojure "1.5.2"]
-                                  [ring "1.5.1"]
-                                  [clj-http "3.4.1"]]}}
+  :profiles {:dev {:dependencies [[compojure "1.6.0"]
+                                  [ring "1.6.1"]
+                                  [clj-http "3.6.0"]]}}
   
   :distribute {:jars  :dependencies
                :files [{:type :clojure
@@ -132,7 +130,7 @@
                         :path "src"
                         :standalone #{"aether" "distribute" "git" "graph" 
                                       "mind" "package" "publish" 
-                                      "query" "system" "unit"}}
+                                      "query" "system" "unit" "legacy"}}
                        {:subpackage "resources"
                         :path "resources"
                         :distribute {"publish" #{"theme"}}}]} 

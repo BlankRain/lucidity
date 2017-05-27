@@ -39,7 +39,7 @@
       (java.io.PushbackReader.)
       (read)
       second)
-  => 'clojure.core.match)
+  => 'lucid.legacy.match)
 
 ^{:refer lucid.package.jar/jar-contents :added "1.1"}
 (fact "lists the contents of a jar"
@@ -70,41 +70,41 @@
 ^{:refer lucid.package.jar/resolve-jar :added "1.1"}
 (fact "resolves the path of a jar for a given namespace, according to many options"
   
-  (resolve-jar 'clojure.core.match)
+  (resolve-jar 'lucid.legacy.match)
   => [*match-path* "clojure/core/match.clj"]
 
   ^:hidden
-  (resolve-jar 'clojure.core.match :classloader file/*clojure-loader*)
+  (resolve-jar 'lucid.legacy.match :classloader file/*clojure-loader*)
   => [*match-path* "clojure/core/match.clj"]
 
-  (resolve-jar 'clojure.core.match
+  (resolve-jar 'lucid.legacy.match
                :jar-path
                *match-path*)
   => [*match-path* "clojure/core/match.clj"]
 
-  (resolve-jar 'clojure.core.match
+  (resolve-jar 'lucid.legacy.match
                :jar-paths
                [*match-path*])
   => [*match-path* "clojure/core/match.clj"]
 
-  (resolve-jar 'clojure.core.match
+  (resolve-jar 'lucid.legacy.match
                :coordinate
                ['org.clojure/core.match *match-version*])
   => [*match-path* "clojure/core/match.clj"]
 
-  (resolve-jar 'clojure.core.match
+  (resolve-jar 'lucid.legacy.match
                :coordinate
                ['im.chit/hara.io.file *match-version*])
   => nil
 
-  (resolve-jar 'clojure.core.match
+  (resolve-jar 'lucid.legacy.match
                :coordinates
                [['org.clojure/core.match *match-version*]])
   => [*match-path* "clojure/core/match.clj"]
 
-  (resolve-jar 'clojure.core.match
+  (resolve-jar 'lucid.legacy.match
                :coordinates
                [['org.clojure/core.match *match-version*]])
 
-  (resolve-jar 'clojure.core.match :repository)
+  (resolve-jar 'lucid.legacy.match :repository)
   => [*match-path* "clojure/core/match.clj"])

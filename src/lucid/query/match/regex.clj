@@ -1,5 +1,5 @@
 (ns lucid.query.match.regex
-  (:require [clojure.core.match :as match]))
+  (:require [lucid.legacy.match :as match]))
 
 (defmethod match/emit-pattern java.util.regex.Pattern
   [pat]

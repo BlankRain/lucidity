@@ -1,5 +1,5 @@
 (ns lucid.query.match.eval
-  (:require [clojure.core.match :as match]))
+  (:require [lucid.legacy.match :as match]))
 
 (defrecord EvaluationPattern [expression])
 

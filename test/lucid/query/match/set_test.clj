@@ -1,7 +1,7 @@
 (ns lucid.query.match.set-test
   (:use hara.test)
   (:require  [lucid.query.match.pattern :refer :all]
-             [clojure.core.match :as match]))
+             [lucid.legacy.match :as match]))
 
 ^{:refer lucid.query.match.set/pattern-fn :added "1.2"}
 (fact "make sure that sets are working properly"

@@ -1,5 +1,5 @@
 (ns lucid.query.match.fn
-  (:require [clojure.core.match :as match]))
+  (:require [lucid.legacy.match :as match]))
 
 (defmethod match/emit-pattern clojure.lang.Fn
   [pat] 

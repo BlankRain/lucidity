@@ -24,19 +24,19 @@
 ^{:refer lucid.package/resolve-jar :added "1.1"}
 (fact "resolves a jar according to context"
 
-  (resolve-jar 'clojure.core.match)
+  (resolve-jar 'lucid.legacy.match)
   => [*match-path* "clojure/core/match.clj"])
 
 ^{:refer lucid.package/resolve-coordinates :added "1.1"}
 (fact "resolves a set of coordinates"
 
-  (resolve-coordinates 'clojure.core.match)
+  (resolve-coordinates 'lucid.legacy.match)
   => ['org.clojure/core.match *match-version*])
 
 ^{:refer lucid.package/resolve-with-dependencies :added "1.1"}
 (fact "resolves the jar and path of a namespace"
 
-  (resolve-with-dependencies 'clojure.core.match)
+  (resolve-with-dependencies 'lucid.legacy.match)
   => [*match-path* "clojure/core/match.clj"])
 
 ^{:refer lucid.package/pull :added "1.1"}
