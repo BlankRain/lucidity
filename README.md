@@ -42,7 +42,7 @@ project packaging and dependencies
 - [lucid.publish](http://docs.caudate.me/lucidity/lucid-publish.html) - 
 [![Clojars](https://img.shields.io/clojars/v/im.chit/lucid.publish.svg)](https://clojars.org/im.chit/lucid.publish)
 generate documentation from code
-- [lucid.query](http://docs.caudate.me/lucidity/lucidityucid-query.html) - 
+- [lucid.query](http://docs.caudate.me/lucidity/lucid-query.html) - 
 [![Clojars](https://img.shields.io/clojars/v/im.chit/lucid.query.svg)](https://clojars.org/im.chit/lucid.query)
 intuitive search for code
 - [lucid.system](http://docs.caudate.me/lucidity/lucid-system.html) - 
