@@ -56,6 +56,4 @@
  {:tag "builder.auth"
   :read {:to-map auth-map}
   :write {:empty (fn [_] (AuthenticationBuilder.))
-          :methods (object/write-all-setters AuthenticationBuilder {:prefix "add"})}})
-
-  
+          :methods (object/write-all-setters AuthenticationBuilder {:prefix "add"})}})  
