@@ -25,6 +25,5 @@
                 :object-id string?
                 :last-modified number?
                 :length number?,
-                :path-string "hello.txt",
-                :smudged? true,
+                :path-string "hello.txt"
                 :creation-time 0}))
