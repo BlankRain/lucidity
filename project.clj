@@ -1,4 +1,4 @@
-(defproject im.chit/lucid "1.3.10"
+(defproject im.chit/lucid "1.3.11"
   :description "tools for code clarity"
   :url "https://www.github.com/zcaudate/lucidity"
   :license {:name "The MIT License"
@@ -6,25 +6,25 @@
   :aliases {"test" ["run" "-m" "hara.test" ":exit"]}
   :dependencies [[org.clojure/clojure             "1.8.0"]
                  
-                 [im.chit/hara.common.checks      "2.5.6"]
-                 [im.chit/hara.concurrent.latch   "2.5.6"]
-                 [im.chit/hara.data.diff          "2.5.6"]
-                 [im.chit/hara.data.nested        "2.5.6"]
-                 [im.chit/hara.event              "2.5.6"]
-                 [im.chit/hara.io.archive         "2.5.6"]
-                 [im.chit/hara.io.classloader     "2.5.6"]
-                 [im.chit/hara.io.classpath       "2.5.6"]
-                 [im.chit/hara.io.encode          "2.5.6"]
-                 [im.chit/hara.io.file            "2.5.6"]
-                 [im.chit/hara.io.project         "2.5.6"]
-                 [im.chit/hara.io.watch           "2.5.6"]
-                 [im.chit/hara.namespace          "2.5.6"]
-                 [im.chit/hara.object             "2.5.6"]
-                 [im.chit/hara.reflect            "2.5.6"]
-                 [im.chit/hara.security           "2.5.6"]
-                 [im.chit/hara.string.case        "2.5.6"]
-                 [im.chit/hara.string.prose       "2.5.6"]
-                 [im.chit/hara.test               "2.5.6"]
+                 [im.chit/hara.common.checks      "2.5.7"]
+                 [im.chit/hara.concurrent.latch   "2.5.7"]
+                 [im.chit/hara.data.diff          "2.5.7"]
+                 [im.chit/hara.data.nested        "2.5.7"]
+                 [im.chit/hara.event              "2.5.7"]
+                 [im.chit/hara.io.archive         "2.5.7"]
+                 [im.chit/hara.io.classloader     "2.5.7"]
+                 [im.chit/hara.io.classpath       "2.5.7"]
+                 [im.chit/hara.io.encode          "2.5.7"]
+                 [im.chit/hara.io.file            "2.5.7"]
+                 [im.chit/hara.io.project         "2.5.7"]
+                 [im.chit/hara.io.watch           "2.5.7"]
+                 [im.chit/hara.namespace          "2.5.7"]
+                 [im.chit/hara.object             "2.5.7"]
+                 [im.chit/hara.reflect            "2.5.7"]
+                 [im.chit/hara.security           "2.5.7"]
+                 [im.chit/hara.string.case        "2.5.7"]
+                 [im.chit/hara.string.prose       "2.5.7"]
+                 [im.chit/hara.test               "2.5.7"]
                  
                  [org.eclipse.aether/aether-api "1.1.0"]
                  [org.eclipse.aether/aether-spi "1.1.0"]
@@ -44,7 +44,6 @@
                  [rewrite-clj/rewrite-clj "0.6.0"]
                  [markdown-clj/markdown-clj "0.9.99"]
                  [hiccup/hiccup "1.0.5"]
-                 [stencil/stencil "0.5.0"]
                  [org.eclipse.jgit "4.6.0.201612231935-r"]
                  [com.github.dblock/oshi-core "3.4.0"]
                  [garden "1.3.2"]

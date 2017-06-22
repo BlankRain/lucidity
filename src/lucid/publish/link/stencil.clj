@@ -1,6 +1,5 @@
 (ns lucid.publish.link.stencil
-  (:require [clojure.string :as string]
-            [stencil.core :as stencil]))
+  (:require [clojure.string :as string]))
 
 (def full-citation-pattern
   (string/join ["\\[\\["
