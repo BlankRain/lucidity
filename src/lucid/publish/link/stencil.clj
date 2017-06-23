@@ -1,5 +1,6 @@
 (ns lucid.publish.link.stencil
-  (:require [clojure.string :as string]))
+  (:require [clojure.string :as string]
+            [hara.string.mustache :as mustache]))
 
 (def full-citation-pattern
   (string/join ["\\[\\["
@@ -33,7 +34,7 @@
       (.replaceAll short-citation-pattern "[{{$1}}](#$1)")
       (.replaceAll full-pattern  "{{$1.$2.number}}")
       (.replaceAll short-pattern (str "{{" name ".$1.number}}"))
-      (stencil/render-string tags)))
+      (mustache/render tags)))
 
 (defn link-stencil
   ""

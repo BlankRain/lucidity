@@ -16,7 +16,6 @@
                  [1 2 4 6])
   => [[3 4] [4 6]])
 
-
 ^{:refer lucid.distribute.manifest.common/best-match :added "1.2"}
 (fact "provides the best match for a file and a distribution map"
 
@@ -41,6 +40,15 @@
   => {nil #{"stuff/y.edn" "stuff/x.edn"}
       "common" #{"common/a.txt" "common/b.txt"}
       "web" #{"web/b.html" "web/a.html"}})
+
+^{:refer lucid.distribute.manifest.common/group-include :added "1.2"}
+(fact "allows for including only patterns in files"
+
+  (group-include ["foo" "bar"]
+                 {nil #{"stuff/x.edn"
+                        "foo/y.edn"
+                        "bar/z.edn"}})
+  => {nil ["foo/y.edn" "bar/z.edn"]})
 
 ^{:refer lucid.distribute.manifest.common/build-distribution :added "1.2"}
 (fact "constructs a distribution for filemap to occur"
@@ -93,3 +101,8 @@
                 "jvm"        anything  ;; {java/im/chit/repack/native/Utils.java},
                 "web"        anything  ;; {java/im/chit/repack/web/Client.java}
                 }))
+
+(comment
+  
+  (require 'lucid.unit)
+  (lucid.unit/import))

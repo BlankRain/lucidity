@@ -80,6 +80,23 @@
           {}
           files))
 
+(defn group-include
+  "allows for including only patterns in files
+ 
+   (group-include [\"foo\" \"bar\"]
+                  {nil #{\"stuff/x.edn\"
+                         \"foo/y.edn\"
+                         \"bar/z.edn\"}})
+   => {nil [\"foo/y.edn\" \"bar/z.edn\"]}"
+  {:added "1.2"}
+  [includes group]
+  (if includes
+    (let [files (->> (get group nil)
+                     (filterv (fn [file]
+                                (first (best-match file {:_ includes})))))]
+      (assoc group nil files))
+    group))
+
 (defn create-filemap
   "creates a filemap for a list of files
  
@@ -126,14 +143,15 @@
        \"common\" #{\"common/a.txt\" \"common/b.txt\"},
        \"web\" #{\"web/b.html\" \"web/a.html\"}}"
   {:added "1.2"}
-  [root {:keys [path subpackage distribute] :as cfg}]
+  [root {:keys [path subpackage distribute include] :as cfg}]
   (let [res-folder (io/file root path)
         distro     (->> (file-seq res-folder)
                         (filter #(not (.isDirectory %)))
                         (filter (fn [f] (not (some #(re-find % (.getPath f)) 
                                                    (:jar-exclusions cfg)))))
                         (map #(str (fs/relativize res-folder %)))
-                        (group-distribution distribute))]
+                        (group-distribution distribute)
+                        (group-include include))]
     distro))
 
 (defmulti build-filemap
