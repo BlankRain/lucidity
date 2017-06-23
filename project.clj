@@ -45,7 +45,7 @@
                  [rewrite-clj/rewrite-clj "0.6.0"]
                  [markdown-clj/markdown-clj "0.9.99"]
                  [hiccup/hiccup "1.0.5"]
-                 [org.eclipse.jgit "4.6.0.201612231935-r"]
+                 [org.eclipse.jgit "4.8.0.201706111038-r"]
                  [com.github.dblock/oshi-core "3.4.0"]
                  [garden "1.3.2"]
                  [net.sourceforge.cssparser/cssparser "0.9.23"]
