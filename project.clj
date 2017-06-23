@@ -39,8 +39,8 @@
                  [org.apache.maven/maven-aether-provider "3.3.9"]
 
                  [org.ow2.asm/asm "5.2"]
-                 [org.bouncycastle/bcprov-jdk15on "1.56"]
-                 [org.bouncycastle/bcpg-jdk15on "1.56"]
+                 [org.bouncycastle/bcprov-jdk15on "1.57"]
+                 [org.bouncycastle/bcpg-jdk15on "1.57"]
                  [version-clj/version-clj "0.1.2"]
                  [rewrite-clj/rewrite-clj "0.6.0"]
                  [markdown-clj/markdown-clj "0.9.99"]
@@ -48,7 +48,7 @@
                  [org.eclipse.jgit "4.6.0.201612231935-r"]
                  [com.github.dblock/oshi-core "3.4.0"]
                  [garden "1.3.2"]
-                 [net.sourceforge.cssparser/cssparser "0.9.22"]
+                 [net.sourceforge.cssparser/cssparser "0.9.23"]
                  [org.graphstream/gs-ui "1.3"
                     :exclusions [[bouncycastle/bcprov-jdk14]
                                  [bouncycastle/bcmail-jdk14]]]
@@ -122,7 +122,7 @@
   
   :profiles {:dev {:dependencies [[compojure "1.6.0"]
                                   [ring "1.6.1"]
-                                  [clj-http "3.6.0"]]
+                                  [clj-http "3.6.1"]]
                    :plugins [[lein-ancient "0.6.10"]]}}
   
   :distribute {:jars  :dependencies
