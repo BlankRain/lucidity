@@ -11,7 +11,7 @@
          {:source \"(defn foo\\n  [x]\\n  (println x \\\"Hello, World!\\\"))\"}}}"
   {:added "1.1"}
   [file]
-  (let [zloc (source/of-file file)
+  (let [zloc (source/of-string (slurp file))
         nsp  (->  (query/$ zloc [(ns | _ & _)] {:walk :top})
                   first)
         fns  (->> (query/$ zloc [(#{defn defmulti defmacro} | _ ^:%?- string? ^:%?- map? & _)]

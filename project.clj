@@ -1,4 +1,4 @@
-(defproject im.chit/lucid "1.3.12"
+(defproject im.chit/lucid "1.3.13"
   :description "tools for code clarity"
   :url "https://www.github.com/zcaudate/lucidity"
   :license {:name "The MIT License"
@@ -6,26 +6,26 @@
   :aliases {"test" ["run" "-m" "hara.test" ":exit"]}
   :dependencies [[org.clojure/clojure             "1.8.0"]
                  
-                 [im.chit/hara.common.checks      "2.5.8"]
-                 [im.chit/hara.concurrent.latch   "2.5.8"]
-                 [im.chit/hara.data.diff          "2.5.8"]
-                 [im.chit/hara.data.nested        "2.5.8"]
-                 [im.chit/hara.event              "2.5.8"]
-                 [im.chit/hara.io.archive         "2.5.8"]
-                 [im.chit/hara.io.classloader     "2.5.8"]
-                 [im.chit/hara.io.classpath       "2.5.8"]
-                 [im.chit/hara.io.encode          "2.5.8"]
-                 [im.chit/hara.io.file            "2.5.8"]
-                 [im.chit/hara.io.project         "2.5.8"]
-                 [im.chit/hara.io.watch           "2.5.8"]
-                 [im.chit/hara.namespace          "2.5.8"]
-                 [im.chit/hara.object             "2.5.8"]
-                 [im.chit/hara.reflect            "2.5.8"]
-                 [im.chit/hara.security           "2.5.8"]
-                 [im.chit/hara.string.case        "2.5.8"]
-                 [im.chit/hara.string.mustache    "2.5.8"]
-                 [im.chit/hara.string.prose       "2.5.8"]
-                 [im.chit/hara.test               "2.5.8"]
+                 [im.chit/hara.common.checks      "2.5.10"]
+                 [im.chit/hara.concurrent.latch   "2.5.10"]
+                 [im.chit/hara.data.diff          "2.5.10"]
+                 [im.chit/hara.data.nested        "2.5.10"]
+                 [im.chit/hara.event              "2.5.10"]
+                 [im.chit/hara.io.archive         "2.5.10"]
+                 [im.chit/hara.io.classloader     "2.5.10"]
+                 [im.chit/hara.io.classpath       "2.5.10"]
+                 [im.chit/hara.io.encode          "2.5.10"]
+                 [im.chit/hara.io.file            "2.5.10"]
+                 [im.chit/hara.io.project         "2.5.10"]
+                 [im.chit/hara.io.watch           "2.5.10"]
+                 [im.chit/hara.namespace          "2.5.10"]
+                 [im.chit/hara.object             "2.5.10"]
+                 [im.chit/hara.reflect            "2.5.10"]
+                 [im.chit/hara.security           "2.5.10"]
+                 [im.chit/hara.string.case        "2.5.10"]
+                 [im.chit/hara.string.mustache    "2.5.10"]
+                 [im.chit/hara.string.prose       "2.5.10"]
+                 [im.chit/hara.test               "2.5.10"]
                  
                  [org.eclipse.aether/aether-api "1.1.0"]
                  [org.eclipse.aether/aether-spi "1.1.0"]

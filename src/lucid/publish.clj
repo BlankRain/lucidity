@@ -126,8 +126,10 @@
          settings (load-settings opts project)
          template (theme/template-path settings project)
          output   (output-path project)
-         files (-> project :publish :files keys vec)]
-     (publish files settings project))))
+         files (-> project :publish :files keys sort)]
+     (doseq [file files]
+       (println "PUBLISH:" file)
+       (time (publish [file] settings project))))))
 
 (defn unwatch
   "removes the automatic publishing of documentation files

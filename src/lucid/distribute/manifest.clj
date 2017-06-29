@@ -1,6 +1,7 @@
 (ns lucid.distribute.manifest
   (:require [clojure.java.io :as io]
             [clojure.set :as set]
+            [hara.io.file :as fs]
             [hara.io.project :as project]
             [lucid.distribute.manifest.graph
              [internal :as internal]
@@ -75,8 +76,10 @@
   {:added "1.2"}
   ([] (manifest (project/project)))
   ([project]
-   (let [cfgs (or (-> project :distribute :files) *default-config*)
+   (let [_     (fs/delete (:root project) {:include [".DS_Store"]})
+         cfgs (or (-> project :distribute :files) *default-config*)
          cfgs (if (vector? cfgs) cfgs [cfgs])
+         
          filemap   (->> cfgs
                         (map #(build-filemap (:root project)
                                              (merge (select-keys project [:jar-exclusions]) %)))

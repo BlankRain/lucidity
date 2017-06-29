@@ -7,7 +7,7 @@
   "returns the zipper for a project file"
   {:added "1.2"}
   [project]
-  (-> (z/of-file (str (:root project) *sep* "project.clj"))
+  (-> (z/of-string (slurp (str (:root project) *sep* "project.clj")))
       (z/find-value z/next 'defproject)))
 
 (defn replace-project-value

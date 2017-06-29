@@ -118,7 +118,7 @@
   "helper function for file manipulation used by import and purge"
   {:added "0.1"}
   [file var references action-fn]
-  (let [zloc (source/of-file file)
+  (let [zloc (source/of-string (slurp file))
         nsp  (-> (query/$ zloc [(ns | _ & _)] {:walk :top})
                  first)
         action (action-fn nsp references)

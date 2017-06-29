@@ -33,7 +33,7 @@
    => {'example.core {'foo {:docs \"1\\n  => 1\", :meta {:added \"0.1\"}}}}"
   {:added "1.1"}
   [file]
-  (let [zloc   (source/of-file file)
+  (let [zloc   (source/of-string (slurp file))
         nsloc  (query/$ zloc [(ns | _ & _)] {:walk :top
                                              :return :zipper
                                              :first true})
