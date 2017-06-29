@@ -50,9 +50,12 @@
 (fact "Finds all the `defn`, `defmulti` and `defmacro` forms in code"
 
   (all-source-vars "src/lucid/core/code.clj")
-  => '[analyse-file join-nodes
+  => '[analyse-file-fn 
+       analyse-file 
+       join-nodes
        source-namespace
-       all-source-vars all-test-vars])
+       all-source-vars 
+       all-test-vars])
 
 ^{:refer lucid.core.code/all-test-vars :added "1.2"}
 (fact "Finds all `comment`, `fact` and `facts` forms in code"
