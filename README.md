@@ -1,6 +1,6 @@
 # lucidity
 
-[![Build Status](https://travis-ci.org/zcaudate/lucidity.png?branch=master)](https://travis-ci.org/im.chit/lucidity)
+[![Build Status](https://travis-ci.org/zcaudate/lucidity.png?branch=master)](https://travis-ci.org/zcaudate/lucidity)
 [![Clojars](https://img.shields.io/clojars/v/im.chit/lucid.svg)](https://clojars.org/im.chit/lucid)
 
 tools for code clarity - see the world not as it is but as it should be.
