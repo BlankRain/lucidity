@@ -61,9 +61,9 @@
           <div class="heading">
             <div>
               <h5>Author: Chris Zheng&nbsp;&nbsp;<a href="mailto:z@caudate.me">(z@caudate.me)</a></h5>
-              <h5>Date: 30 May 2017</h5>
+              <h5>Date: 29 June 2017</h5>
               <h5>Repository: <a href="https://www.github.com/zcaudate/lucidity">https://www.github.com/zcaudate/lucidity</a></h5>
-              <h5>Version: 1.3.9</h5></div></div>
+              <h5>Version: 1.3.13</h5></div></div>
           <hr/>
           <div class="outline">
             <div class="toc">
@@ -83,7 +83,7 @@
                 </ul>
               </nav>
           </div>
-          <div><span id="introduction"></span><h2><b>1 &nbsp;&nbsp; Introduction</b></h2></div><div><p><code>lucid.publish</code> facilitates the creation of 'documentation that we can run', the tool allows for a design-orientated workflow for the programming process, blurring the boundaries between design, development, testing and documentation. This library was originally developed as <a href='https://www.github.com/zcaudate/lein-midje-doc'>lein-midje-doc</a>, and then <a href='https://www.github.com/helpshift/hydrox'>hydrox</a>.</p></div><div><span id="installation"></span><h3>1.1 &nbsp;&nbsp; Installation</h3></div><div><p>Add to <code>project.clj</code> dependencies:</p></div><div class="code"><pre><code class="clojure">[im.chit/lucid.publish &quot;1.3.9&quot;]</code></pre></div><div><p>All functionality is in the <code>lucid.publish</code> namespace:</p></div><div class="code"><pre><code class="clojure">(use 'lucid.publish)</code></pre></div><div><span id="motivation"></span><h3>1.2 &nbsp;&nbsp; Motivation</h3></div><div><p>Documentation is the programmers' means of communicating how to use a library. There are various tools for documentation like <code>latex</code>, <code>wiki</code> and <code>markdown</code>, however <code>lucid.publish</code> should be thought of as an in-built html renderer for clojure code. It's features are:</p><ol><li>To generate <code>.html</code> documentation from a <code>.clj</code> test file.</li><li>Render code and test cases as examples</li><li>Latex-like numbering and linking facilities</li><li>To promote code as communication</li></ol></div><div><span id="walkthrough"></span><h3>1.3 &nbsp;&nbsp; Walkthrough</h3></div><div><p>Any clojure file can be made into a <code>.html</code> page. Let's give it a go. Create a file in <code>test/example/sample&#95;document.clj</code> and copy and paste the following:</p></div><div class="code"><pre><code class="clojure">^{:site &quot;hello&quot;
+          <div><span id="introduction"></span><h2><b>1 &nbsp;&nbsp; Introduction</b></h2></div><div><p><code>lucid.publish</code> facilitates the creation of 'documentation that we can run', the tool allows for a design-orientated workflow for the programming process, blurring the boundaries between design, development, testing and documentation. This library was originally developed as <a href='https://www.github.com/zcaudate/lein-midje-doc'>lein-midje-doc</a>, and then <a href='https://www.github.com/helpshift/hydrox'>hydrox</a>.</p></div><div><span id="installation"></span><h3>1.1 &nbsp;&nbsp; Installation</h3></div><div><p>Add to <code>project.clj</code> dependencies:</p></div><div class="code"><pre><code class="clojure">[im.chit/lucid.publish &quot;1.3.13&quot;]</code></pre></div><div><p>All functionality is in the <code>lucid.publish</code> namespace:</p></div><div class="code"><pre><code class="clojure">(use 'lucid.publish)</code></pre></div><div><span id="motivation"></span><h3>1.2 &nbsp;&nbsp; Motivation</h3></div><div><p>Documentation is the programmers' means of communicating how to use a library. There are various tools for documentation like <code>latex</code>, <code>wiki</code> and <code>markdown</code>, however <code>lucid.publish</code> should be thought of as an in-built html renderer for clojure code. It's features are:</p><ol><li>To generate <code>.html</code> documentation from a <code>.clj</code> test file.</li><li>Render code and test cases as examples</li><li>Latex-like numbering and linking facilities</li><li>To promote code as communication</li></ol></div><div><span id="walkthrough"></span><h3>1.3 &nbsp;&nbsp; Walkthrough</h3></div><div><p>Any clojure file can be made into a <code>.html</code> page. Let's give it a go. Create a file in <code>test/example/sample&#95;document.clj</code> and copy and paste the following:</p></div><div class="code"><pre><code class="clojure">^{:site &quot;hello&quot;
   :title &quot;world&quot;
   :subtitle &quot;this is a sample document&quot;}
 (ns example.sample-document
@@ -182,15 +182,17 @@
 ;; publishes `index` in a specific project with additional options
 (publish "index"
          {:refresh true :theme "bolton"}
-         (project/project <PATH>))</code></pre></div><div class="entry"><span id="entry__lucid_publish__publish_all"></span><div class="entry-description"><h4><b>publish-all&nbsp<a data-scroll="" href="#entry__lucid_publish__">^</a></b></h4><p><i>publishes all documents as html</i></p></div><div class="entry-option"><h6><a href="https://www.github.com/zcaudate/lucidity/blob/master/src/lucid/publish.clj#L112-L130" target="_blank">v&nbsp;1.2</a></h6><div><input class="source-toggle" id="entry__pre_lucid_publish__publish_all" type="checkbox" /><label class="source-toggle" for="entry__pre_lucid_publish__publish_all"></label><pre class="source"><code class="clojure">(defn publish-all
+         (project/project <PATH>))</code></pre></div><div class="entry"><span id="entry__lucid_publish__publish_all"></span><div class="entry-description"><h4><b>publish-all&nbsp<a data-scroll="" href="#entry__lucid_publish__">^</a></b></h4><p><i>publishes all documents as html</i></p></div><div class="entry-option"><h6><a href="https://www.github.com/zcaudate/lucidity/blob/master/src/lucid/publish.clj#L112-L132" target="_blank">v&nbsp;1.2</a></h6><div><input class="source-toggle" id="entry__pre_lucid_publish__publish_all" type="checkbox" /><label class="source-toggle" for="entry__pre_lucid_publish__publish_all"></label><pre class="source"><code class="clojure">(defn publish-all
   ([] (publish-all {} (project/project)))
   ([opts project]
    (let [project  (add-lookup project)
          settings (load-settings opts project)
          template (theme/template-path settings project)
          output   (output-path project)
-         files (-> project :publish :files keys vec)]
-     (publish files settings project))))</code></pre></div></div><pre><h6><i><a href="https://www.github.com/zcaudate/lucidity/blob/master/test/lucid/publish_test.clj#L36-L44" target="_blank">link</a></i></h6><code class="clojure">;; publishes all the entries in `:publish :files`
+         files (-> project :publish :files keys sort)]
+     (doseq [file files]
+       (println "PUBLISH:" file)
+       (time (publish [file] settings project))))))</code></pre></div></div><pre><h6><i><a href="https://www.github.com/zcaudate/lucidity/blob/master/test/lucid/publish_test.clj#L36-L44" target="_blank">link</a></i></h6><code class="clojure">;; publishes all the entries in `:publish :files`
 (publish-all)
 
 
@@ -231,7 +233,7 @@ Here is a tag reference to Chapter Heading - {{ch-heading}}
 - - - Hummingbird   ; 1.2.1.2
 - - Flightless      ; 1.2.2
 - - - Penguin       ; 1.2.2.1</code></pre></div><div><span id="image"></span><h3>4.3 &nbsp;&nbsp; :image</h3></div><div><p>The <code>:image</code> element embeds an image as a figure within the document. It is numbered and can be tagged for easy reference. The code example below:</p></div><div class="code"><pre><code class="clojure">[[:image {:tag &quot;clojure-logo&quot; :title &quot;Clojure Logo (source clojure.org)&quot;
-          :src &quot;http://clojure.org/images/clojure-logo-120b.png&quot;}]]</code></pre></div><div><p>produces the image below in Figure 1:</p></div><div class="figure"><a id="clojure-logo"></a><h4><i>fig.1  &nbsp;-&nbsp; Clojure Logo (source clojure.org)</i></h4><div class="img"><img line="{:row 228, :col 1, :end-row 229, :end-col 68}" src="http://clojure.org/images/clojure-logo-120b.png" title="Clojure Logo (source clojure.org)" /></div><p></p></div><div><span id="file"></span><h3>4.4 &nbsp;&nbsp; :file</h3></div><div><p>The <code>:file</code> element allows inclusion of other files into the document. It is useful for breaking up a document into managable chunks. A file element require that the <code>:src</code> attribute be specified. A high-level view of a document can thus be achieved, making the source more readable. This is similar to the <code>include</code> element in latex.</p></div><div class="code"><a id="file-element"></a><h4><i>e.4.4  &nbsp;-&nbsp; :file tag example</i></h4><pre><code class="clojure">[[:file {:src &quot;test/docs/first_section.clj&quot;}]]
+          :src &quot;http://clojure.org/images/clojure-logo-120b.png&quot;}]]</code></pre></div><div><p>produces the image below in Figure </p></div><div class="figure"><a id="clojure-logo"></a><h4><i>fig.1  &nbsp;-&nbsp; Clojure Logo (source clojure.org)</i></h4><div class="img"><img line="{:row 228, :col 1, :end-row 229, :end-col 68}" src="http://clojure.org/images/clojure-logo-120b.png" title="Clojure Logo (source clojure.org)" /></div><p></p></div><div><span id="file"></span><h3>4.4 &nbsp;&nbsp; :file</h3></div><div><p>The <code>:file</code> element allows inclusion of other files into the document. It is useful for breaking up a document into managable chunks. A file element require that the <code>:src</code> attribute be specified. A high-level view of a document can thus be achieved, making the source more readable. This is similar to the <code>include</code> element in latex.</p></div><div class="code"><a id="file-element"></a><h4><i>e.4.4  &nbsp;-&nbsp; :file tag example</i></h4><pre><code class="clojure">[[:file {:src &quot;test/docs/first_section.clj&quot;}]]
 [[:file {:src &quot;test/docs/second_section.clj&quot;}]]
 [[:file {:src &quot;test/docs/third_section.clj&quot;}]]</code></pre></div><div><span id="code"></span><h2><b>5 &nbsp;&nbsp; Code</b></h2></div><div><p>Code displayed in documentation are of a few types:</p><ol><li>Code that needs to be run (normal clojure code)</li><li>Code that needs verification taking input and showing output. (midje fact)</li><li>Code that should not be run (namespace declaration examples)</li><li>Code that is part of the library's tests or source definition</li><li>Code in other languages</li></ol><p>The different types of code can be defined so that code examples render properly using a variety of methods</p></div><div><span id="normal-s-expressions"></span><h3>5.1 &nbsp;&nbsp; normal s-expressions</h3></div><div><p>Normal s-expressions are rendered as is. Attributes can be added for grouping purposes. The source code shown below</p></div><div class="code"><a id="c-add-src"></a><h4><i>e.5.1  &nbsp;-&nbsp; seperating code blocks through attributes</i></h4><pre><code class="clojure">[[{:title &quot;add-n definition&quot; :tag &quot;c-add-1&quot;}]]
 (defn add-n [n]
@@ -274,7 +276,8 @@ Here is a tag reference to Chapter Heading - {{ch-heading}}
            (fs/create-directory (fs/parent out))
            (fs/write (.openStream resource)
                      out
-                     {:options [:replace-existing]}))
+                     {:options [:replace-existing]})
+           (.closeStream resource))
          (catch Exception e
            (print &quot;Cannot Deploy Filename:&quot; filename)
            ;;(throw e)
@@ -283,7 +286,7 @@ Here is a tag reference to Chapter Heading - {{ch-heading}}
   (let [project (project/project)
         theme   (-> project :publish :theme)
         settings (load-settings theme project)]
-    (apply f (concat args [settings project]))))</code></pre></div></div><pre><h6><i><a href="https://www.github.com/zcaudate/lucidity/blob/master/test/lucid/publish/theme_test.clj#L20-L20" target="_blank">link</a></i></h6><code class="clojure"></code></pre></div><div class="entry"><span id="entry__lucid_publish_theme__deploy"></span><div class="entry-description"><h4><b>deploy&nbsp<a data-scroll="" href="#entry__lucid_publish_theme__">^</a></b></h4><p><i>deploys theme into template directory</i></p></div><div class="entry-option"><h6><a href="https://www.github.com/zcaudate/lucidity/blob/master/src/lucid/publish/theme.clj#L76-L97" target="_blank">v&nbsp;1.2</a></h6><div><input class="source-toggle" id="entry__pre_lucid_publish_theme__deploy" type="checkbox" /><label class="source-toggle" for="entry__pre_lucid_publish_theme__deploy"></label><pre class="source"><code class="clojure">(defn deploy
+    (apply f (concat args [settings project]))))</code></pre></div></div><pre><h6><i><a href="https://www.github.com/zcaudate/lucidity/blob/master/test/lucid/publish/theme_test.clj#L20-L20" target="_blank">link</a></i></h6><code class="clojure"></code></pre></div><div class="entry"><span id="entry__lucid_publish_theme__deploy"></span><div class="entry-description"><h4><b>deploy&nbsp<a data-scroll="" href="#entry__lucid_publish_theme__">^</a></b></h4><p><i>deploys theme into template directory</i></p></div><div class="entry-option"><h6><a href="https://www.github.com/zcaudate/lucidity/blob/master/src/lucid/publish/theme.clj#L76-L98" target="_blank">v&nbsp;1.2</a></h6><div><input class="source-toggle" id="entry__pre_lucid_publish_theme__deploy" type="checkbox" /><label class="source-toggle" for="entry__pre_lucid_publish_theme__deploy"></label><pre class="source"><code class="clojure">(defn deploy
   ([]
    (apply-settings deploy))
   ([settings project]
@@ -299,7 +302,8 @@ Here is a tag reference to Chapter Heading - {{ch-heading}}
            (fs/create-directory (fs/parent out))
            (fs/write (.openStream resource)
                      out
-                     {:options [:replace-existing]}))
+                     {:options [:replace-existing]})
+           (.closeStream resource))
          (catch Exception e
            (print "Cannot Deploy Filename:" filename)
            ;;(throw e)
