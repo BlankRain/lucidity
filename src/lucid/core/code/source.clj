@@ -1,5 +1,6 @@
 (ns lucid.core.code.source
   (:require [rewrite-clj.zip :as source]
+            [clojure.java.io :as io]
             [lucid.query :as query]))
 
 (defn analyse-source-file

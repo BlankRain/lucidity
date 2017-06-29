@@ -1,6 +1,7 @@
 (ns lucid.publish.parse
   (:require [lucid.query :as query]
             [lucid.publish.parse.checks :as checks]
+            [clojure.java.io :as io]
             [rewrite-clj.zip :as source]
             [rewrite-clj.node :as node]))
 
@@ -328,4 +329,5 @@
   (let [path (if (:root opts)
                (str (:root opts) "/" file)
                file)]
-    (parse-loop (source/of-file path) opts)))
+    (with-open [input (io/input-stream path)]
+      (parse-loop (source/of-string (slurp path)) opts))))

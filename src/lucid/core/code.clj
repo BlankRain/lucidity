@@ -1,11 +1,26 @@
 (ns lucid.core.code
   (:require [lucid.core.code
              [test :as test]
-             [source :as source]]
+             [source :as source]
+             [setup :as setup]]
             [rewrite-clj.node :as node]
             [hara.string.prose :as prose]
             [clojure.string :as string]
             [hara.io.file :as fs]))
+
+(defn analyse-file-fn
+  ([path time]
+   (cond (.endsWith (str path) "_test.clj")
+         (test/analyse-test-file path)
+
+         :else
+         (source/analyse-source-file path)))
+  ([type path time]
+   (case type
+     :source (source/analyse-source-file path)
+     :test (test/analyse-test-file path))))
+
+(def analyse-file-fn* (memoize analyse-file-fn))
 
 (defn analyse-file
   "analyses a source or test file for information
@@ -35,15 +50,13 @@
           :intro \"analyses a source or test file for information\"}}})"
   {:added "1.2"}
   ([path]
-   (cond (.endsWith (str path) "_test.clj")
-         (test/analyse-test-file path)
-
-         :else
-         (source/analyse-source-file path)))
+   (analyse-file-fn* path (-> (fs/path path)
+                              fs/attributes
+                              :last-modified-time)))
   ([type path]
-   (case type
-     :source (source/analyse-source-file path)
-     :test (test/analyse-test-file path))))
+   (analyse-file-fn* type path (-> (fs/path path)
+                                   fs/attributes
+                                   :last-modified-time))))
         
 (defn join-nodes
   "joins nodes together from a test

@@ -90,7 +90,8 @@
            (fs/create-directory (fs/parent out))
            (fs/write (.openStream resource)
                      out
-                     {:options [:replace-existing]}))
+                     {:options [:replace-existing]})
+           (.closeStream resource))
          (catch Exception e
            (print "Cannot Deploy Filename:" filename)
            ;;(throw e)

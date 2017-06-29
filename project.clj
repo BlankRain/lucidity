@@ -42,7 +42,7 @@
                  [org.bouncycastle/bcprov-jdk15on "1.57"]
                  [org.bouncycastle/bcpg-jdk15on "1.57"]
                  [version-clj/version-clj "0.1.2"]
-                 [rewrite-clj/rewrite-clj "0.6.0"]
+                 [rewrite-clj/rewrite-clj "0.4.13"]
                  [markdown-clj/markdown-clj "0.9.99"]
                  [hiccup/hiccup "1.0.5"]
                  [org.eclipse.jgit "4.8.0.201706111038-r"]
